@@ -1,5 +1,5 @@
 import * as z from "zod";
-import { Workspace } from "./concepts/workspace";
+import { Directory, Workspace } from "./concepts/workspace";
 import { Initiative, InitiativeMember } from "./concepts/initiative";
 import { Thesis } from "./concepts/thesis";
 import { Document, DocumentVersion, Passage } from "./concepts/document";
@@ -22,6 +22,7 @@ import { ScriptStep } from "./sse";
  */
 export const FIXTURES = {
   "workspace.json": Workspace,
+  "fixed-directory.json": Directory,
   "initiatives.json": z.array(Initiative),
   "initiative-members.json": z.array(InitiativeMember),
   "theses.json": z.array(Thesis),

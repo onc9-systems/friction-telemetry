@@ -4,10 +4,12 @@ import AppKit
 final class StatusMenu: NSObject, NSMenuDelegate {
     private let item = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
     private let menu = NSMenu()
+    private let model: AppModel
     var onOpen: () -> Void = {}
     var debugMenu: NSMenu?
 
-    override init() {
+    init(model: AppModel) {
+        self.model = model
         super.init()
         item.button?.image = NSImage(systemSymbolName: "hand.raised", accessibilityDescription: "Friction")
         menu.delegate = self
@@ -24,6 +26,15 @@ final class StatusMenu: NSObject, NSMenuDelegate {
         pause.isEnabled = false
         menu.addItem(pause)
         menu.addItem(.separator())
+        menu.addItem(NSMenuItem.sectionHeader(title: "Using Friction as"))
+        for person in model.directory.people {
+            let item = NSMenuItem(title: "\(person.name), \(person.roleLabel)", action: #selector(switchPerson(_:)), keyEquivalent: "")
+            item.target = self
+            item.representedObject = person.id
+            item.state = person.id == model.me.id ? .on : .off
+            menu.addItem(item)
+        }
+        menu.addItem(.separator())
         if let debugMenu {
             let debug = NSMenuItem(title: "Debug", action: nil, keyEquivalent: "")
             debug.submenu = debugMenu
@@ -33,4 +44,7 @@ final class StatusMenu: NSObject, NSMenuDelegate {
     }
 
     @objc private func open() { onOpen() }
+    @objc private func switchPerson(_ sender: NSMenuItem) {
+        if let id = sender.representedObject as? String { model.switchPerson(to: id) }
+    }
 }

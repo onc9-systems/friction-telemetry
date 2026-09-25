@@ -22,7 +22,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         do {
-            model = try AppModel(client: ShellClient())
+            model = try AppModel(client: ShellClient(), directory: Identity.bundledDirectory())
         } catch {
             let alert = NSAlert()
             alert.messageText = "Friction couldn't load its sample data."
@@ -46,7 +46,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
         pill.show()
 
-        statusMenu = StatusMenu()
+        statusMenu = StatusMenu(model: model)
         statusMenu.onOpen = { [weak self] in self?.mainWindow.show() }
         #if DEBUG
         debugMenu = DebugMenu(model: model, pill: pill, showReview: { [weak self] in

@@ -18,6 +18,13 @@ The analysis layer (triage, clustering, thesis scoring, insight generation) is a
 - Signing: Team `P62A3QS593`, identity `Developer ID Application`. See the global CLAUDE.md for notarization.
 - Package manager: bun. Monorepo: turbo.
 - Worker surface references: real Granola screens are in `osis/references/granola/`, with notes on what to take from each.
+- Identity until phase 02: three fixed people in `packages/contracts/fixtures/fixed-directory.json`. Service routes read `c.var.actor` (`Hono<AppEnv>`), never a constant; every Mac request calls `request.identify()`. Details in `02-auth-workspace.impl.md`, Engineering Notes.
+
+## Build and release
+
+- `xcode-select` points at the Command Line Tools; run `xcodebuild` with `DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer`. Tests: `xcodegen generate` then `xcodebuild test -project Friction.xcodeproj -scheme Friction -destination 'platform=macOS' -derivedDataPath build/dd` in `apps/mac`.
+- Release for other Macs goes through `xcodebuild archive` then `-exportArchive` with `method developer-id`, never a plain `build`: only the export re-signs Sparkle's helpers with our Developer ID and a timestamp, and notarization rejects them otherwise. Then `notarytool submit --keychain-profile ac-notary --wait` and `stapler staple`.
+- API tests: `bunx vitest run` in `apps/api`. A new worktree needs `apps/api/.dev.vars` (copy it; it is ignored), or the Inngest route answers 500.
 
 ## Build sessions
 

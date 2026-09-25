@@ -20,6 +20,7 @@ final class LiveClient {
     func serviceIsReachable() async -> Bool {
         var request = URLRequest(url: baseURL.appending(path: "v1/health"))
         request.timeoutInterval = 3
+        request.identify()
         guard let (_, response) = try? await session.data(for: request) else { return false }
         return (response as? HTTPURLResponse)?.statusCode == 200
     }
@@ -36,6 +37,7 @@ final class LiveClient {
                 do {
                     var request = URLRequest(url: url)
                     request.httpMethod = "POST"
+                    request.identify()
                     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
                     request.setValue("text/event-stream", forHTTPHeaderField: "Accept")
                     request.setValue(script.rawValue, forHTTPHeaderField: "x-ft-stub-script")

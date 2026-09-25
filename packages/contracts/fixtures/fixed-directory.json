@@ -1,0 +1,29 @@
+{
+  "organization": {
+    "id": "org_acme",
+    "name": "Acme Logistics"
+  },
+  "people": [
+    {
+      "id": "usr_andres",
+      "name": "Andrés Campos",
+      "email": "andres@acmelogistics.com",
+      "title": "Project Manager",
+      "leader": true
+    },
+    {
+      "id": "usr_romina",
+      "name": "Romina",
+      "email": "romina@acmelogistics.com",
+      "title": null,
+      "leader": false
+    },
+    {
+      "id": "usr_amir",
+      "name": "Amir",
+      "email": "amir@acmelogistics.com",
+      "title": "Executive",
+      "leader": true
+    }
+  ]
+}

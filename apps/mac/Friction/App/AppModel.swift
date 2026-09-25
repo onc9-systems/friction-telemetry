@@ -50,6 +50,8 @@ final class AppModel {
     let client: FrictionClient
     private(set) var data: SampleData
     private let loaded: SampleData
+    /// The only people this Mac can act as (fixed-directory.json).
+    let directory: Directory
 
     var selection: Surface = .home
     var selectedRecordId: UUID?
@@ -61,24 +63,52 @@ final class AppModel {
     var askTurns: [AskTurn] = []
     var askScope: UUID?
 
-    var isLeader: Bool { didSet { UserDefaults.standard.set(isLeader, forKey: "debug.leader") } }
+    /// The person's leader permission. Set from the directory on launch and on every switch; Debug can flip it.
+    var isLeader: Bool
     var emptyData: Bool { didSet { UserDefaults.standard.set(emptyData, forKey: "debug.emptyData") } }
     var stubScript: StubScript { didSet { UserDefaults.standard.set(stubScript.rawValue, forKey: "debug.stubScript") } }
 
-    init(client: FrictionClient) throws {
+    init(client: FrictionClient, directory: Directory) throws {
         self.client = client
-        let data = try client.sampleData()
+        self.directory = directory
+        // A Mac that has not been set to anyone acts as the first person without leader permission.
+        let chosen = directory.people.first { $0.id == Identity.userId }
+            ?? directory.people.first { !$0.leader } ?? directory.people[0]
+        Identity.userId = chosen.id
+        var data = try client.sampleData()
+        data.workspace = Self.workspace(directory, sample: data.workspace, signedIn: chosen.id)
         self.loaded = data
         self.data = data
         let defaults = UserDefaults.standard
-        let me = data.workspace.people.first { $0.id == data.workspace.signedInUserId }
-        self.isLeader = defaults.object(forKey: "debug.leader") as? Bool ?? (me?.leader ?? false)
+        self.isLeader = chosen.leader
         self.emptyData = defaults.bool(forKey: "debug.emptyData")
         self.stubScript = StubScript(rawValue: defaults.string(forKey: "debug.stubScript") ?? "") ?? .answered
         self.askScope = liveInitiatives.first?.id
     }
 
     // MARK: People and initiatives
+
+    /// The directory's organization and people, signed in as `signedIn`. Sample people stay so sample rows keep their names.
+    private static func workspace(_ directory: Directory, sample: Workspace, signedIn: String) -> Workspace {
+        let ids = Set(directory.people.map(\.id))
+        return Workspace(organization: directory.organization,
+                         people: directory.people + sample.people.filter { !ids.contains($0.id) },
+                         signedInUserId: signedIn)
+    }
+
+    /// Act as another person from the directory. What this session sent as the previous person is cleared.
+    func switchPerson(to id: String) {
+        guard let person = directory.people.first(where: { $0.id == id }), person.id != me.id else { return }
+        Identity.userId = person.id
+        data.workspace = Self.workspace(directory, sample: data.workspace, signedIn: person.id)
+        isLeader = person.leader
+        sentItems = []
+        sessions = [:]
+        askTurns = []
+        askScope = liveInitiatives.first?.id
+        selectedRecordId = nil
+        if !isLeader, Surface.initiative.contains(selection) { selection = .home }
+    }
 
     var me: Person { data.workspace.people.first { $0.id == data.workspace.signedInUserId }! }
     var organization: Organization { data.workspace.organization }
