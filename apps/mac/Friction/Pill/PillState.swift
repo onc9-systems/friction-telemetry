@@ -33,7 +33,7 @@ final class PillModel {
     var state: PillState = .idle { didSet { if state != oldValue { onChange?() } } }
     var elapsed = 0
     var levels: [Double] = Array(repeating: 0.2, count: 12)
-    var transcriptLine = "It says approved but I still have to call finance to release the PO to the supplier"
+    var transcriptLine = "It says closed won but I still have to message RevOps to create the customer"
     var microphoneName = "MacBook Pro Microphone"
     var noticeText = ""
 

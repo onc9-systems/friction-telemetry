@@ -23,16 +23,16 @@
     {
       "at": "2026-09-25T10:37:02.511Z",
       "reason": "activated",
-      "appName": "SAP GUI",
-      "bundleId": "com.sap.SAPGUI",
-      "windowTitle": "Create Purchase Order ME21N"
+      "appName": "HubSpot",
+      "bundleId": "com.hubspot.desktop",
+      "windowTitle": "Deals | Pipeline board | HubSpot"
     },
     {
       "at": "2026-09-25T10:41:15.004Z",
       "reason": "activated",
       "appName": "Google Chrome",
       "bundleId": "com.google.Chrome",
-      "windowTitle": "Procurement Policy v3 - Approvals"
+      "windowTitle": "HubSpot Sales Playbook v3 - Closing a deal"
     },
     {
       "at": "2026-09-25T10:41:58.730Z",

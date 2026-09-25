@@ -17,10 +17,10 @@ final class CaptureReviewModel {
         }
     }
 
-    var transcript = "I raised the PO for the pallet wrap in Ariba and it's approved, but the status still says I have to call finance to release it to the supplier. The policy says it should go automatically."
+    var transcript = "I moved the Gulf Freight deal to Closed Won in HubSpot and it saved, but it still says I have to message RevOps to create the customer. The playbook says it should happen automatically."
     var initiativeId: UUID
     var removed: Set<Item> = []
-    var appNames = ["Chrome", "SAP Ariba", "Slack"]
+    var appNames = ["Chrome", "HubSpot", "Slack"]
     /// Redaction boxes drawn on the screenshot, in unit coordinates (0...1) of the image.
     var boxes: [CGRect] = []
     var editingScreenshot = false

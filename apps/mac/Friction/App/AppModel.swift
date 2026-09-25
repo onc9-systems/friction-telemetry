@@ -31,9 +31,8 @@ enum Surface: String, Hashable, CaseIterable {
     }
 
     static let worker: [Surface] = [.home, .ask, .qa]
-    static let initiative: [Surface] = [.initiatives, .insights, .health]
-    /// Internal: proves captures reach the cloud. Not a product surface.
-    static let pipeline: [Surface] = [.intake]
+    /// Leaders only (admin and executive view). Intake shows every flag the organization has sent.
+    static let initiative: [Surface] = [.initiatives, .insights, .health, .intake]
 }
 
 /// One question and its answer in Ask.

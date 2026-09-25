@@ -25,23 +25,23 @@
   ],
   "windowCount": 3,
   "transcriptStatus": "done",
-  "transcript": "It says approved but I still have to call finance.",
+  "transcript": "It says closed won but I still have to message RevOps.",
   "transcriptError": null,
   "screen": { "width": 1280, "height": 800, "framesPerSecond": 5 },
   "windows": [
     {
       "at": "2026-09-25T10:37:02.511Z",
       "reason": "activated",
-      "appName": "SAP GUI",
-      "bundleId": "com.sap.SAPGUI",
-      "windowTitle": "Create Purchase Order ME21N"
+      "appName": "HubSpot",
+      "bundleId": "com.hubspot.desktop",
+      "windowTitle": "Deals | Pipeline board | HubSpot"
     },
     {
       "at": "2026-09-25T10:41:15.004Z",
       "reason": "activated",
       "appName": "Google Chrome",
       "bundleId": "com.google.Chrome",
-      "windowTitle": "Procurement Policy v3 - Approvals"
+      "windowTitle": "HubSpot Sales Playbook v3 - Closing a deal"
     },
     {
       "at": "2026-09-25T10:41:58.730Z",
@@ -54,13 +54,13 @@
   "words": [
     { "word": "It", "startedAt": "2026-09-25T10:42:30.694Z", "endedAt": "2026-09-25T10:42:30.854Z", "confidence": 0.99 },
     { "word": "says", "startedAt": "2026-09-25T10:42:30.854Z", "endedAt": "2026-09-25T10:42:31.134Z", "confidence": 0.98 },
-    { "word": "approved", "startedAt": "2026-09-25T10:42:31.134Z", "endedAt": "2026-09-25T10:42:31.694Z", "confidence": 0.97 },
+    { "word": "closed", "startedAt": "2026-09-25T10:42:31.134Z", "endedAt": "2026-09-25T10:42:31.694Z", "confidence": 0.97 },
     { "word": "but", "startedAt": "2026-09-25T10:42:31.774Z", "endedAt": "2026-09-25T10:42:31.934Z", "confidence": 0.99 },
     { "word": "I", "startedAt": "2026-09-25T10:42:31.934Z", "endedAt": "2026-09-25T10:42:32.014Z", "confidence": 0.99 },
     { "word": "still", "startedAt": "2026-09-25T10:42:32.014Z", "endedAt": "2026-09-25T10:42:32.254Z", "confidence": 0.98 },
     { "word": "have", "startedAt": "2026-09-25T10:42:32.254Z", "endedAt": "2026-09-25T10:42:32.414Z", "confidence": 0.99 },
     { "word": "to", "startedAt": "2026-09-25T10:42:32.414Z", "endedAt": "2026-09-25T10:42:32.494Z", "confidence": 0.99 },
-    { "word": "call", "startedAt": "2026-09-25T10:42:32.494Z", "endedAt": "2026-09-25T10:42:32.734Z", "confidence": 0.98 },
-    { "word": "finance.", "startedAt": "2026-09-25T10:42:32.734Z", "endedAt": "2026-09-25T10:42:33.214Z", "confidence": 0.96 }
+    { "word": "message", "startedAt": "2026-09-25T10:42:32.494Z", "endedAt": "2026-09-25T10:42:32.734Z", "confidence": 0.98 },
+    { "word": "RevOps.", "startedAt": "2026-09-25T10:42:32.734Z", "endedAt": "2026-09-25T10:42:33.214Z", "confidence": 0.96 }
   ]
 }

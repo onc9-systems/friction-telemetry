@@ -48,12 +48,12 @@ struct NewInitiativeSheet: View {
                         Chip(text: "Affected people", symbol: "person.3")
                         Chip(text: "Target date", symbol: "calendar")
                     }
-                    field("What is changing", text: $whatIsChanging, prompt: "Purchase orders move from email to SAP Ariba.")
+                    field("What is changing", text: $whatIsChanging, prompt: "Sales moves from spreadsheets to HubSpot.")
                     field("Why", text: $why, prompt: "Finance spends two days a month chasing approvals.")
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Theses").font(.headline)
                         ForEach(theses.indices, id: \.self) { i in
-                            TextField("Buyers can raise a PO without calling finance.", text: $theses[i], axis: .vertical)
+                            TextField("Reps can close a deal without messaging RevOps.", text: $theses[i], axis: .vertical)
                                 .textFieldStyle(.roundedBorder)
                         }
                         Button { theses.append("") } label: { Label("Thesis", systemImage: "plus") }.buttonStyle(.link)
@@ -116,7 +116,7 @@ struct NewInitiativeSheet: View {
                     }
                     return true
                 }
-                .onTapGesture { add("Procurement Policy v3.pdf") }
+                .onTapGesture { add("HubSpot Sales Playbook v3.pdf") }
         }
     }
 

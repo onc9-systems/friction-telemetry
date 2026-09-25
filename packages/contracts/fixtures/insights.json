@@ -2,7 +2,7 @@
   {
     "id": "98db0e21-bfb5-51cd-ab16-b36f0e0eb2ef",
     "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
-    "title": "Buyers are still told to call finance to release approved POs",
+    "title": "Reps are still told to message RevOps after closing a deal",
     "clusterIds": [
       "d9a8fcae-215c-5dab-a788-22800bc6640a"
     ],
@@ -24,7 +24,7 @@
   {
     "id": "cd5179a3-3f9c-5d56-9366-a48f13e2a8c6",
     "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
-    "title": "The cost centre list still offers codes retired on 1 September",
+    "title": "The pipeline list still offers pipelines retired on 1 September",
     "clusterIds": [
       "df1d5460-04fb-59f0-877f-4cb9d63f30af"
     ],
@@ -46,7 +46,7 @@
   {
     "id": "254cad95-62a7-5428-977a-4eb630ae9b62",
     "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
-    "title": "Nobody has said whether existing suppliers need a second approval",
+    "title": "Nobody has said whether renewals need a second approval",
     "clusterIds": [
       "3e9f5278-f7cd-5acd-8623-43b2ec1d2f17",
       "35ea5e39-5755-504a-8c82-2b7b8fcb5e33"
@@ -73,7 +73,7 @@
   {
     "id": "56bbf63f-7b92-5cfd-be5b-2f5c42c872ce",
     "initiativeId": "72c96695-7781-503c-ae49-cf27b5bacb2c",
-    "title": "The kiosk logs staff out before their clock-in is saved",
+    "title": "HubSpot signs marketers out before their email draft is saved",
     "clusterIds": [
       "a48c9d20-eb07-5726-ab6d-7cd8ba596dda"
     ],
@@ -95,7 +95,7 @@
   {
     "id": "8aa97a33-ca59-5ef1-8e2a-5e8fd82dbce5",
     "initiativeId": "72c96695-7781-503c-ae49-cf27b5bacb2c",
-    "title": "Night shifts are split across two days in the Workday app",
+    "title": "Scheduled sends show the wrong time zone and go out twice",
     "clusterIds": [
       "dce95522-8aa7-5264-9f5a-7588cb4aae44"
     ],

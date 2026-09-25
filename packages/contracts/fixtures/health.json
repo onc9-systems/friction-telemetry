@@ -2,7 +2,7 @@
   {
     "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
     "label": "breaking",
-    "changeSummary": "Breaking since Monday: a second thesis started breaking and Procurement Policy v3 was marked suspect.",
+    "changeSummary": "Breaking since Monday: a second thesis started breaking and the HubSpot Sales Playbook v3 was marked suspect.",
     "computedAt": "2026-09-24T06:00:00.000Z",
     "components": [
       {
@@ -45,7 +45,7 @@
   {
     "initiativeId": "72c96695-7781-503c-ae49-cf27b5bacb2c",
     "label": "at_risk",
-    "changeSummary": "At risk, unchanged since last week: night-shift clock-ins are still breaking.",
+    "changeSummary": "At risk, unchanged since last week: time-zone scheduled sends are still breaking.",
     "computedAt": "2026-09-24T06:00:00.000Z",
     "components": [
       {

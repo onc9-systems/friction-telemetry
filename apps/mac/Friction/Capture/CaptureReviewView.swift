@@ -49,7 +49,7 @@ struct CaptureReviewView: View {
                 Text("\(item.title) removed.").foregroundStyle(.secondary)
                 Button("Undo") {
                     model.undo(item)
-                    if item == .apps && model.appNames.isEmpty { model.appNames = ["Chrome", "SAP Ariba", "Slack"] }
+                    if item == .apps && model.appNames.isEmpty { model.appNames = ["Chrome", "HubSpot", "Slack"] }
                 }
                 .buttonStyle(.link)
             }

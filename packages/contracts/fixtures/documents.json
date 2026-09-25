@@ -2,7 +2,7 @@
   {
     "id": "eda5f4f0-fc9b-5b9d-830f-b462de6ecc84",
     "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
-    "title": "Procurement Policy v3",
+    "title": "HubSpot Sales Playbook v3",
     "activeVersionId": "bb53e651-5a9b-5b4f-91d4-cb2f9de28b1f",
     "suspect": true,
     "createdAt": "2026-08-20T10:00:00.000Z"
@@ -10,7 +10,7 @@
   {
     "id": "73bd5f93-ac0f-5cb6-ba12-c4e032313cac",
     "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
-    "title": "Ariba Buyer Guide",
+    "title": "HubSpot Deal Pipeline Guide",
     "activeVersionId": "c24501c6-cd5a-52ca-a780-7c8475ffa095",
     "suspect": false,
     "createdAt": "2026-08-20T10:00:00.000Z"
@@ -18,7 +18,7 @@
   {
     "id": "7193e0d4-4c64-5804-8620-5496429167d0",
     "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
-    "title": "Approval Matrix FY26",
+    "title": "Pipeline and Approval Rules FY26",
     "activeVersionId": "e90dc717-062d-5039-9c03-265885aed3a7",
     "suspect": false,
     "createdAt": "2026-08-20T10:00:00.000Z"
@@ -26,7 +26,7 @@
   {
     "id": "2b02ba02-dc9e-55c1-9d53-28a94c8de300",
     "initiativeId": "72c96695-7781-503c-ae49-cf27b5bacb2c",
-    "title": "Workday Time Tracking Guide",
+    "title": "HubSpot Email Guide",
     "activeVersionId": "4bc7d44f-f4b2-595f-abba-82697e8436e1",
     "suspect": false,
     "createdAt": "2026-08-26T10:00:00.000Z"
@@ -34,7 +34,7 @@
   {
     "id": "a2988a2e-6f62-5c21-a53b-6b1819f7f09a",
     "initiativeId": "72c96695-7781-503c-ae49-cf27b5bacb2c",
-    "title": "Kiosk Clock-In Quick Card",
+    "title": "Campaign Send Quick Card",
     "activeVersionId": "4e52fe55-6707-5552-af6f-d3edef32d9e9",
     "suspect": false,
     "createdAt": "2026-08-26T10:00:00.000Z"
@@ -42,7 +42,7 @@
   {
     "id": "b6a0379f-30b0-54a3-b640-202c88c982c1",
     "initiativeId": "13feca90-71b9-5988-9a69-87ab46d64408",
-    "title": "Corporate Card Policy draft",
+    "title": "Service Hub Ticket Policy draft",
     "activeVersionId": null,
     "suspect": false,
     "createdAt": "2026-09-20T10:05:00.000Z"
@@ -50,7 +50,7 @@
   {
     "id": "f010cf88-0ff3-5d9e-a7cb-76d39bb13362",
     "initiativeId": "c9efc9a2-d110-5b71-8013-eb14a5615703",
-    "title": "Navan Travel Policy",
+    "title": "Salesforce Shutdown Plan",
     "activeVersionId": "9d9958ae-39bf-56d6-ba29-7598445fa24f",
     "suspect": false,
     "createdAt": "2026-05-04T09:30:00.000Z"

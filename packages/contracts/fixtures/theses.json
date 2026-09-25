@@ -2,56 +2,56 @@
   {
     "id": "c9fe3e15-9c3d-5a20-99f8-08bd74ef6f35",
     "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
-    "statement": "Buyers can raise a PO without calling finance.",
+    "statement": "Reps can close a deal without messaging RevOps.",
     "verdict": "breaking",
     "position": 0
   },
   {
     "id": "44e6f660-2003-513f-a533-3b05c7973e99",
     "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
-    "statement": "Approvals under 5,000 dollars clear within one working day.",
+    "statement": "Approvals under 50,000 dollars clear within one working day.",
     "verdict": "holding",
     "position": 1
   },
   {
     "id": "bc3eca6f-bd00-5d1f-9092-47816064009f",
     "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
-    "statement": "Suppliers receive POs from Ariba without anyone re-sending them.",
+    "statement": "Customers receive quotes from HubSpot without anyone re-sending them.",
     "verdict": "no_evidence",
     "position": 2
   },
   {
     "id": "64a77de5-315c-574b-aeec-99a5e32232d8",
     "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
-    "statement": "Buyers pick the right cost centre on the first try.",
+    "statement": "Reps pick the right pipeline on the first try.",
     "verdict": "breaking",
     "position": 3
   },
   {
     "id": "2907aeae-a9d1-5b4d-aedb-dc41262a13cc",
     "initiativeId": "72c96695-7781-503c-ae49-cf27b5bacb2c",
-    "statement": "Supervisors approve every timesheet in Workday by Monday noon.",
+    "statement": "Every campaign is approved in HubSpot by Monday noon.",
     "verdict": "holding",
     "position": 0
   },
   {
     "id": "c0eb221b-2ac2-5d40-91e6-e9ad340d4a82",
     "initiativeId": "72c96695-7781-503c-ae49-cf27b5bacb2c",
-    "statement": "Night-shift staff can clock in without a supervisor on site.",
+    "statement": "Marketers can schedule sends across time zones without help.",
     "verdict": "breaking",
     "position": 1
   },
   {
     "id": "04d624d7-52cf-583a-90bf-1d5246556b1d",
     "initiativeId": "13feca90-71b9-5988-9a69-87ab46d64408",
-    "statement": "Staff stop asking for cash advances within a month.",
+    "statement": "Nobody forwards support email to the shared inbox within a month.",
     "verdict": "no_evidence",
     "position": 0
   },
   {
     "id": "ce00b094-4631-5ad8-be04-6f7479049323",
     "initiativeId": "c9efc9a2-d110-5b71-8013-eb14a5615703",
-    "statement": "Every trip is booked in Navan.",
+    "statement": "Every account is edited in HubSpot only.",
     "verdict": "holding",
     "position": 0
   }

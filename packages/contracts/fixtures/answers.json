@@ -3,13 +3,13 @@
     "id": "7a6f5672-bbed-5fb5-ad31-a9a238fe37c6",
     "flagId": "a9e2e93a-5783-5f16-ab88-9187fd69991a",
     "questionId": null,
-    "text": "The Dubai warehouse cost centre was renamed on 1 September. Pick DXB-WH-02; the old code DXB-07 no longer accepts new purchase orders.",
+    "text": "The Dubai pipeline was renamed on 1 September. Pick MEA Enterprise; the old pipeline DXB Sales no longer accepts new deals.",
     "citations": [
       {
         "passageId": "4b2b5ca3-ff53-5b36-bda5-ebf88f6d1e76",
         "qaEntryId": null,
-        "quote": "From 1 September the Dubai warehouse cost centre is DXB-WH-02. The old code DXB-07 no longer accepts new purchase orders.",
-        "documentTitle": "Approval Matrix FY26",
+        "quote": "From 1 September the Dubai region pipeline is MEA Enterprise. The old pipeline DXB Sales no longer accepts new deals.",
+        "documentTitle": "Pipeline and Approval Rules FY26",
         "locator": "Cost centres, Renamed codes"
       }
     ],
@@ -20,7 +20,7 @@
     "id": "5ef7ee09-00e0-579a-991b-7258f16effd3",
     "flagId": null,
     "questionId": "6d8155f4-5a2b-5484-8b58-17c1ef368408",
-    "text": "The Procurement rollout docs don't cover this yet. I've sent it to the Procurement owner, and their answer will show up here.",
+    "text": "The HubSpot CRM rollout docs don't cover this yet. I've sent it to the Sales Ops owner, and their answer will show up here.",
     "citations": [],
     "provisionalShown": true,
     "createdAt": "2026-09-24T11:15:00.000Z"
@@ -29,13 +29,13 @@
     "id": "a6b2227e-a64a-5906-8e6e-2967cff14c4a",
     "flagId": "17125885-cc96-5e9c-a521-b3aa5bb2b74a",
     "questionId": null,
-    "text": "If a clock-in didn't save, add the missing time under My Time before Sunday at midnight. Your supervisor sees the change when they approve your timesheet.",
+    "text": "If your draft looks empty after you were signed out, open Version history and restore the last autosave before Sunday at midnight. Your approver sees the restored draft when they review it.",
     "citations": [
       {
         "passageId": "581bcc0e-2c34-5980-8943-8e5d8ee0cd84",
         "qaEntryId": null,
-        "quote": "If you forget to clock out, add the missing time under My Time before Sunday at midnight. Your supervisor sees the change when they approve your timesheet.",
-        "documentTitle": "Workday Time Tracking Guide",
+        "quote": "If an email draft looks empty after you are signed out, open Version history in the editor and restore the last autosave before Sunday at midnight. Your approver sees the restored draft when they review it.",
+        "documentTitle": "HubSpot Email Guide",
         "locator": "Section 3.1 Missed clock-outs"
       }
     ],
@@ -46,20 +46,20 @@
     "id": "c6be55ec-db93-5828-9324-019603dd56d6",
     "flagId": "7d1f915d-ed3d-5913-8cb1-2fc4e31bbdcd",
     "questionId": null,
-    "text": "Approved POs release to the supplier automatically, so you shouldn't need to call finance. If a PO shows Pending release for more than a day, open it and choose Request release.",
+    "text": "Closed Won deals create the customer record automatically, so you shouldn't need to message RevOps. If a deal shows Pending sync for more than a day, open it and choose Request review.",
     "citations": [
       {
         "passageId": "366e0343-f84a-536f-b6e1-18a2b9f2b31a",
         "qaEntryId": null,
-        "quote": "Once every approver has signed off in Ariba, the purchase order is released to the supplier automatically. Buyers do not need to contact Finance to release an approved PO.",
-        "documentTitle": "Procurement Policy v3",
+        "quote": "Once the required closing fields are filled in, moving a deal to Closed Won creates the customer company record automatically. Reps do not need to contact RevOps to close a deal.",
+        "documentTitle": "HubSpot Sales Playbook v3",
         "locator": "Section 4.2 Approvals"
       },
       {
         "passageId": "b0e62546-637a-59ee-91a3-492a1b76715e",
         "qaEntryId": null,
-        "quote": "If an approved PO shows Pending release for more than one working day, open it and choose Request release. The request goes to the Procurement team, not to Finance.",
-        "documentTitle": "Ariba Buyer Guide",
+        "quote": "If a Closed Won deal shows Pending sync for more than one working day, open it and choose Request review. The request goes to the Sales Ops queue, not to RevOps.",
+        "documentTitle": "HubSpot Deal Pipeline Guide",
         "locator": "Section 2.3 Tracking release"
       }
     ],
@@ -70,13 +70,13 @@
     "id": "e6bfc361-41a7-5893-bf11-c83d0d9669a6",
     "flagId": null,
     "questionId": "1dca856c-a332-52b2-8ea5-d645d2ac82ff",
-    "text": "In Ariba, open Purchase Orders, then My Requests. The Status column shows who holds the approval and since when.",
+    "text": "In HubSpot, open Deals, then the Approvals tab. The Status column shows who holds the approval and since when.",
     "citations": [
       {
         "passageId": null,
         "qaEntryId": "c2f829b8-10f5-5c84-891c-c27edd9363ad",
-        "quote": "In Ariba, open Purchase Orders, then My Requests. The Status column shows who holds the approval and since when.",
-        "documentTitle": "Procurement rollout Q&A",
+        "quote": "In HubSpot, open Deals, then the Approvals tab. The Status column shows who holds the approval and since when.",
+        "documentTitle": "HubSpot CRM rollout Q&A",
         "locator": "Approved by Daniel Mensah"
       }
     ],
@@ -87,13 +87,13 @@
     "id": "79ca78e6-da25-5308-8a10-dcd05c2667ee",
     "flagId": null,
     "questionId": "20d5b8f2-0606-5ca4-afff-dc3f5bf36215",
-    "text": "Yes. Add the missing time under My Time before Sunday at midnight, and your supervisor sees the change when they approve.",
+    "text": "Yes. Open Version history in the editor and restore the last autosave before Sunday at midnight, and your approver sees the restored draft.",
     "citations": [
       {
         "passageId": "581bcc0e-2c34-5980-8943-8e5d8ee0cd84",
         "qaEntryId": null,
-        "quote": "If you forget to clock out, add the missing time under My Time before Sunday at midnight. Your supervisor sees the change when they approve your timesheet.",
-        "documentTitle": "Workday Time Tracking Guide",
+        "quote": "If an email draft looks empty after you are signed out, open Version history in the editor and restore the last autosave before Sunday at midnight. Your approver sees the restored draft when they review it.",
+        "documentTitle": "HubSpot Email Guide",
         "locator": "Section 3.1 Missed clock-outs"
       }
     ],
@@ -104,7 +104,7 @@
     "id": "b6e52e7a-822a-54dd-8a88-d901160cb5b2",
     "flagId": "3b1bc09a-e279-5ee9-a850-d39df5598d95",
     "questionId": null,
-    "text": "The Procurement rollout docs don't cover this yet. I've sent it to the Procurement owner, and their answer will show up here.",
+    "text": "The HubSpot CRM rollout docs don't cover this yet. I've sent it to the Sales Ops owner, and their answer will show up here.",
     "citations": [],
     "provisionalShown": true,
     "createdAt": "2026-09-21T09:20:00.000Z"
@@ -113,7 +113,7 @@
     "id": "e5683adb-eed2-5c7b-8aaa-bb935801d695",
     "flagId": "4d448476-3375-5e12-a56c-57160acaaa02",
     "questionId": null,
-    "text": "The New timesheets docs don't cover this yet. I've sent it to the Time tracking owner, and their answer will show up here.",
+    "text": "The HubSpot marketing emails docs don't cover this yet. I've sent it to the Marketing Ops owner, and their answer will show up here.",
     "citations": [],
     "provisionalShown": false,
     "createdAt": "2026-09-21T15:10:00.000Z"
@@ -122,13 +122,13 @@
     "id": "448cc95e-67d0-50d3-a47c-39e904fa073c",
     "flagId": null,
     "questionId": "04d15a77-620e-59c6-a65b-2e312d30ff84",
-    "text": "Your cost centre manager approves first, then the Finance Controller. Ariba routes both automatically.",
+    "text": "Your sales manager approves first, then the Revenue Director. HubSpot routes both automatically.",
     "citations": [
       {
         "passageId": "024b6e80-733d-584a-907f-7af2cc955c79",
         "qaEntryId": null,
-        "quote": "Purchase orders above 5,000 dollars need the cost centre manager's approval and then the Finance Controller's. Ariba routes both automatically.",
-        "documentTitle": "Approval Matrix FY26",
+        "quote": "Deals above 50,000 dollars need the sales manager's approval and then the Revenue Director's. HubSpot routes both automatically.",
+        "documentTitle": "Pipeline and Approval Rules FY26",
         "locator": "Approval limits, Above 5,000 dollars"
       }
     ],

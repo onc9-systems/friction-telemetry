@@ -5,7 +5,7 @@
     "data": {
       "eventId": "00000000-0000-4000-8000-000000000000",
       "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
-      "initiativeName": "Procurement rollout",
+      "initiativeName": "HubSpot CRM rollout",
       "initiativeConfidence": 0.88,
       "switchable": false,
       "alternatives": [],
@@ -24,7 +24,7 @@
     "delayMs": 40,
     "event": "delta",
     "data": {
-      "text": "The Procurement rollout "
+      "text": "The HubSpot CRM rollout "
     }
   },
   {
@@ -38,56 +38,56 @@
     "delayMs": 40,
     "event": "delta",
     "data": {
-      "text": "whether existing suppliers "
+      "text": "whether renewals with "
     }
   },
   {
     "delayMs": 40,
     "event": "delta",
     "data": {
-      "text": "need a second "
+      "text": "existing customers need "
     }
   },
   {
     "delayMs": 40,
     "event": "delta",
     "data": {
-      "text": "approval. I've sent "
+      "text": "a second approval. "
     }
   },
   {
     "delayMs": 40,
     "event": "delta",
     "data": {
-      "text": "this to the "
+      "text": "I've sent this "
     }
   },
   {
     "delayMs": 40,
     "event": "delta",
     "data": {
-      "text": "Procurement owner, and "
+      "text": "to the Sales "
     }
   },
   {
     "delayMs": 40,
     "event": "delta",
     "data": {
-      "text": "their answer will "
+      "text": "Ops owner, and "
     }
   },
   {
     "delayMs": 40,
     "event": "delta",
     "data": {
-      "text": "show up here "
+      "text": "their answer will show "
     }
   },
   {
     "delayMs": 40,
     "event": "delta",
     "data": {
-      "text": "and in Q&A."
+      "text": "up here and in Q&A."
     }
   },
   {

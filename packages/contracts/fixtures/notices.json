@@ -4,8 +4,8 @@
     "userId": "usr_sam",
     "kind": "fix_recorded",
     "refId": "48c681a2-87f4-597c-a16f-884b9f479212",
-    "title": "Fixed: POs no longer need a finance call",
-    "body": "Daniel Mensah: approved POs now release to the supplier automatically. You don't need to call finance anymore.",
+    "title": "Fixed: closing a deal no longer needs RevOps",
+    "body": "Daniel Mensah: Closed Won deals now create the customer record automatically. You don't need to message RevOps anymore.",
     "createdAt": "2026-09-24T08:30:00.000Z",
     "readAt": null
   }

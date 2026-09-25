@@ -33,7 +33,7 @@ struct MainView: View {
         case .insights: InsightsView()
         case .health: HealthView()
         case .settings: SettingsView()
-        case .intake: IntakeView()
+        case .intake: if model.isLeader { IntakeView() } else { HomeView() }
         }
     }
 }
@@ -52,9 +52,6 @@ struct Sidebar: View {
                     Section("Initiatives") {
                         ForEach(Surface.initiative, id: \.self) { s in Label(s.title, systemImage: s.symbol).tag(s) }
                     }
-                }
-                Section("Pipeline") {
-                    ForEach(Surface.pipeline, id: \.self) { s in Label(s.title, systemImage: s.symbol).tag(s) }
                 }
             }
             .listStyle(.sidebar)

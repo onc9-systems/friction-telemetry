@@ -2,12 +2,12 @@
   {
     "id": "a9e2e93a-5783-5f16-ab88-9187fd69991a",
     "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
-    "transcript": "Ariba won't let me pick the Dubai warehouse cost centre. It only shows the old codes, and DXB-07 gets rejected.",
+    "transcript": "HubSpot won't let me pick the Dubai pipeline. It only shows the old pipelines, and DXB Sales gets rejected.",
     "screenshotKey": "flags/org_acme/a9e2e93a-5783-5f16-ab88-9187fd69991a/screenshot.png",
     "clipKey": "flags/org_acme/a9e2e93a-5783-5f16-ab88-9187fd69991a/clip.mp4",
     "appNames": [
       "Chrome",
-      "SAP Ariba"
+      "HubSpot"
     ],
     "resolutionClass": "answered",
     "createdAt": "2026-09-24T09:40:00.000Z"
@@ -15,11 +15,11 @@
   {
     "id": "17125885-cc96-5e9c-a521-b3aa5bb2b74a",
     "initiativeId": "72c96695-7781-503c-ae49-cf27b5bacb2c",
-    "transcript": "The kiosk logged me out halfway through clocking in, and now my shift shows as missing.",
+    "transcript": "HubSpot signed me out halfway through building the email, and now my draft shows as empty.",
     "screenshotKey": "flags/org_acme/17125885-cc96-5e9c-a521-b3aa5bb2b74a/screenshot.png",
     "clipKey": "flags/org_acme/17125885-cc96-5e9c-a521-b3aa5bb2b74a/clip.mp4",
     "appNames": [
-      "Workday Kiosk"
+      "HubSpot"
     ],
     "resolutionClass": "still_stuck",
     "createdAt": "2026-09-24T14:02:00.000Z"
@@ -27,13 +27,13 @@
   {
     "id": "7d1f915d-ed3d-5913-8cb1-2fc4e31bbdcd",
     "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
-    "transcript": "I raised the PO in Ariba and it was approved, but it still says I need to call finance to release it to the supplier.",
+    "transcript": "I moved the deal to Closed Won and it saved, but it still says I need to message RevOps to create the customer.",
     "screenshotKey": "flags/org_acme/7d1f915d-ed3d-5913-8cb1-2fc4e31bbdcd/screenshot.png",
     "clipKey": "flags/org_acme/7d1f915d-ed3d-5913-8cb1-2fc4e31bbdcd/clip.mp4",
     "appNames": [
       "Chrome",
-      "SAP Ariba",
-      "Outlook"
+      "HubSpot",
+      "Slack"
     ],
     "resolutionClass": "still_stuck",
     "createdAt": "2026-09-23T10:05:00.000Z"
@@ -41,12 +41,12 @@
   {
     "id": "3b1bc09a-e279-5ee9-a850-d39df5598d95",
     "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
-    "transcript": "Ariba keeps asking for a contract number on one-off purchases that don't have a contract.",
+    "transcript": "HubSpot keeps asking for a quote number on deals that don't have a quote yet.",
     "screenshotKey": "flags/org_acme/3b1bc09a-e279-5ee9-a850-d39df5598d95/screenshot.png",
     "clipKey": "flags/org_acme/3b1bc09a-e279-5ee9-a850-d39df5598d95/clip.mp4",
     "appNames": [
       "Chrome",
-      "SAP Ariba"
+      "HubSpot"
     ],
     "resolutionClass": "unanswerable",
     "createdAt": "2026-09-21T09:20:00.000Z"
@@ -54,11 +54,11 @@
   {
     "id": "4d448476-3375-5e12-a56c-57160acaaa02",
     "initiativeId": "72c96695-7781-503c-ae49-cf27b5bacb2c",
-    "transcript": "The Workday app shows my night shift split across two days and counts my break twice.",
+    "transcript": "The scheduled send shows the wrong time zone, and the preview says it will go out twice.",
     "screenshotKey": null,
     "clipKey": null,
     "appNames": [
-      "Workday"
+      "HubSpot"
     ],
     "resolutionClass": "unanswerable",
     "createdAt": "2026-09-21T15:10:00.000Z"

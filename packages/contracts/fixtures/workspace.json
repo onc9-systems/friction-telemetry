@@ -8,49 +8,49 @@
       "id": "usr_priya",
       "name": "Priya Raman",
       "email": "priya.raman@acmelogistics.com",
-      "title": "Head of Operations",
+      "title": "Head of Revenue",
       "leader": true
     },
     {
       "id": "usr_sam",
       "name": "Sam Okafor",
       "email": "sam.okafor@acmelogistics.com",
-      "title": "Buyer",
+      "title": "Account Executive",
       "leader": false
     },
     {
       "id": "usr_daniel",
       "name": "Daniel Mensah",
       "email": "daniel.mensah@acmelogistics.com",
-      "title": "Procurement Lead",
+      "title": "Sales Operations Lead",
       "leader": false
     },
     {
       "id": "usr_omar",
       "name": "Omar Haddad",
       "email": "omar.haddad@acmelogistics.com",
-      "title": "Finance Controller",
+      "title": "Revenue Director",
       "leader": false
     },
     {
       "id": "usr_laura",
       "name": "Laura Chen",
       "email": "laura.chen@acmelogistics.com",
-      "title": "HR Systems Manager",
+      "title": "Marketing Operations Manager",
       "leader": true
     },
     {
       "id": "usr_aisha",
       "name": "Aisha Al Mansoori",
       "email": "aisha.almansoori@acmelogistics.com",
-      "title": "Warehouse Supervisor",
+      "title": "Support Team Lead",
       "leader": false
     },
     {
       "id": "usr_ben",
       "name": "Ben Carter",
       "email": "ben.carter@acmelogistics.com",
-      "title": "Buyer",
+      "title": "Account Executive",
       "leader": false
     }
   ],

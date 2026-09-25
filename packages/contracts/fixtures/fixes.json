@@ -3,7 +3,7 @@
     "id": "48c681a2-87f4-597c-a16f-884b9f479212",
     "insightId": "98db0e21-bfb5-51cd-ab16-b36f0e0eb2ef",
     "recordedByUserId": "usr_daniel",
-    "summary": "Approved POs now release to the supplier automatically. The call-finance step is gone from Ariba, and section 4.2 of Procurement Policy v3 now says so.",
+    "summary": "Closed Won deals now create the customer record automatically. The message-RevOps step is gone from HubSpot, and section 4.2 of the HubSpot Sales Playbook v3 now says so.",
     "recordedAt": "2026-09-24T08:30:00.000Z"
   }
 ]

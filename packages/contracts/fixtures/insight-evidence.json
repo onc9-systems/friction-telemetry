@@ -11,28 +11,28 @@
     ],
     "excerpts": [
       {
-        "text": "It was approved, but it still says I need to call finance to release it to the supplier.",
+        "text": "It saved as Closed Won, but it still says I need to message RevOps to create the customer.",
         "day": "2026-09-23",
         "appNames": [
-          "SAP Ariba",
-          "Outlook"
+          "HubSpot",
+          "Slack"
         ],
         "hasScreenshot": true
       },
       {
-        "text": "Third PO this week stuck on Pending release. Finance says it's not them.",
+        "text": "Third deal this week stuck on Pending sync. RevOps says it's not them.",
         "day": "2026-09-22",
         "appNames": [
-          "SAP Ariba"
+          "HubSpot"
         ],
         "hasScreenshot": true
       },
       {
-        "text": "The policy says it releases automatically but the screen tells me to phone finance.",
+        "text": "The playbook says it creates the customer automatically, but the screen tells me to message RevOps.",
         "day": "2026-09-18",
         "appNames": [
           "Chrome",
-          "SAP Ariba"
+          "HubSpot"
         ],
         "hasScreenshot": false
       }
@@ -53,18 +53,18 @@
     ],
     "excerpts": [
       {
-        "text": "It only shows the old codes, and DXB-07 gets rejected.",
+        "text": "It only shows the old pipelines, and DXB Sales gets rejected.",
         "day": "2026-09-24",
         "appNames": [
-          "SAP Ariba"
+          "HubSpot"
         ],
         "hasScreenshot": true
       },
       {
-        "text": "Which cost centre is the Jebel Ali yard now? The list has both.",
+        "text": "Which pipeline is the Jebel Ali account in now? The list has both.",
         "day": "2026-09-17",
         "appNames": [
-          "SAP Ariba"
+          "HubSpot"
         ],
         "hasScreenshot": true
       }
@@ -83,16 +83,16 @@
     ],
     "excerpts": [
       {
-        "text": "Do I still need a second approval for POs from a supplier we already use?",
+        "text": "Do I still need a second approval for renewals with a customer we already have?",
         "day": "2026-09-24",
         "appNames": [],
         "hasScreenshot": false
       },
       {
-        "text": "Ariba keeps asking for a contract number on one-off purchases that don't have a contract.",
+        "text": "HubSpot keeps asking for a quote number on deals that don't have a quote yet.",
         "day": "2026-09-21",
         "appNames": [
-          "SAP Ariba"
+          "HubSpot"
         ],
         "hasScreenshot": true
       }
@@ -111,18 +111,18 @@
     ],
     "excerpts": [
       {
-        "text": "The kiosk logged me out halfway through clocking in, and now my shift shows as missing.",
+        "text": "HubSpot signed me out halfway through building the email, and now my draft shows as empty.",
         "day": "2026-09-24",
         "appNames": [
-          "Workday Kiosk"
+          "HubSpot"
         ],
         "hasScreenshot": true
       },
       {
-        "text": "Kiosk timed out while I was picking my shift.",
+        "text": "The editor timed out while I was picking the list.",
         "day": "2026-09-19",
         "appNames": [
-          "Workday Kiosk"
+          "HubSpot"
         ],
         "hasScreenshot": false
       }

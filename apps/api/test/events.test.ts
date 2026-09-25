@@ -94,7 +94,7 @@ describe("POST /v1/events: the answer stream stub", () => {
       .map((f) => (f.data as { text: string }).text)
       .join("");
     expect(text).toBe(
-      "Approved POs release to the supplier automatically, so you don't need to call finance. If a PO shows Pending release for more than a day, open it and choose Request release.",
+      "Closed Won deals create the customer record automatically, so you don't need to message RevOps. If a deal shows Pending sync for more than a day, open it and choose Request review.",
     );
   });
 });

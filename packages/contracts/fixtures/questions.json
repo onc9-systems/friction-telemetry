@@ -2,28 +2,28 @@
   {
     "id": "6d8155f4-5a2b-5484-8b58-17c1ef368408",
     "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
-    "text": "Do I still need a second approval for POs from a supplier we already use?",
+    "text": "Do I still need a second approval for renewals with a customer we already have?",
     "resolutionClass": "unanswerable",
     "createdAt": "2026-09-24T11:15:00.000Z"
   },
   {
     "id": "1dca856c-a332-52b2-8ea5-d645d2ac82ff",
     "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
-    "text": "Where do I find the approval status of a PO I submitted?",
+    "text": "Where do I find the approval status of a deal I submitted?",
     "resolutionClass": "answered",
     "createdAt": "2026-09-23T13:30:00.000Z"
   },
   {
     "id": "20d5b8f2-0606-5ca4-afff-dc3f5bf36215",
     "initiativeId": "72c96695-7781-503c-ae49-cf27b5bacb2c",
-    "text": "Can I fix last Friday's timesheet if I forgot to clock out?",
+    "text": "Can I recover last Friday's email draft after HubSpot signed me out?",
     "resolutionClass": "answered",
     "createdAt": "2026-09-23T16:45:00.000Z"
   },
   {
     "id": "04d15a77-620e-59c6-a65b-2e312d30ff84",
     "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
-    "text": "Who approves POs over 5,000 dollars now?",
+    "text": "Who approves deals over 50,000 dollars now?",
     "resolutionClass": "answered",
     "createdAt": "2026-09-21T11:00:00.000Z"
   }
