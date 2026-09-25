@@ -5,8 +5,8 @@ import manifestFixture from "@friction-telemetry/contracts/fixtures/flag-capture
 import { alignWords } from "../src/captures/align";
 import { PART_SIZE } from "../src/captures/summary";
 
-const call = (method: string, path: string, init: RequestInit = {}) =>
-  exports.default.fetch(`http://api.test${path}`, { method, ...init });
+const call = (method: string, path: string, init: RequestInit = {}, user = "usr_romina") =>
+  exports.default.fetch(`http://api.test${path}`, { method, ...init, headers: { "x-ft-user": user, ...(init.headers as Record<string, string>) } });
 const postJson = (path: string, body: unknown) =>
   call("POST", path, { headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
 
@@ -119,5 +119,8 @@ describe.skipIf(env.FT_DB_TESTS !== "1")("capture intake against the database", 
 
     const list = FlagCaptureSummary.array().parse(await (await call("GET", "/v1/captures")).json());
     expect(list.map((s) => s.flagId)).toContain(flagId.toLowerCase());
+
+    const anonymous = await exports.default.fetch(`http://api.test/v1/captures/${flagId}`);
+    expect(anonymous.status).toBe(401);
   }, 60_000);
 });

@@ -86,7 +86,8 @@ struct IntakeView: View {
                 line("On this Mac", local.map(macStatus) ?? "Not tracked on this Mac")
                 if let remote, let video = remote.parts.first(where: { $0.kind == .video && $0.status == .received }) {
                     RecordingPreview(
-                        url: api.contentURL(flagId: id, kind: .video),
+                        flagId: id,
+                        api: api,
                         duration: video.endedAt.timeIntervalSince(video.startedAt),
                         // The poster is the frame on screen when the employee clicked the hand.
                         posterAt: remote.clickedAt.timeIntervalSince(video.startedAt)
@@ -161,12 +162,14 @@ struct IntakeView: View {
 }
 
 /// The flag's screen recording: a poster frame with a play button, which becomes an AVKit player on click.
-/// Both stream from the service, which answers Range reads straight from R2.
+/// Both read a local copy downloaded once from the service as the acting person.
 private struct RecordingPreview: View {
-    let url: URL
+    let flagId: UUID
+    let api: CaptureAPI
     let duration: TimeInterval
     let posterAt: TimeInterval
 
+    @State private var file: URL?
     @State private var poster: NSImage?
     @State private var aspect: Double = 1280.0 / 832.0
     @State private var failure: String?
@@ -174,11 +177,12 @@ private struct RecordingPreview: View {
 
     var body: some View {
         ZStack {
-            if playing {
-                PlayerView(url: url)
+            if playing, let file {
+                PlayerView(url: file)
             } else {
                 Button { playing = true } label: { posterFace }
                     .buttonStyle(.plain)
+                    .disabled(file == nil)
                     .accessibilityLabel("Play the recording")
             }
         }
@@ -186,7 +190,7 @@ private struct RecordingPreview: View {
         .frame(maxWidth: .infinity)
         .clipShape(.rect(cornerRadius: 10))
         .overlay(RoundedRectangle(cornerRadius: 10).strokeBorder(Palette.hairline))
-        .task(id: url) { await loadPoster() }
+        .task(id: flagId) { await loadPoster() }
     }
 
     private var posterFace: some View {
@@ -222,7 +226,15 @@ private struct RecordingPreview: View {
     }
 
     private func loadPoster() async {
-        let asset = AVURLAsset(url: url)
+        let asset: AVURLAsset
+        do {
+            let local = try await api.cachedContent(flagId: flagId, kind: .video)
+            file = local
+            asset = AVURLAsset(url: local)
+        } catch {
+            failure = error.localizedDescription
+            return
+        }
         let generator = AVAssetImageGenerator(asset: asset)
         generator.appliesPreferredTrackTransform = true
         generator.maximumSize = CGSize(width: 1280, height: 1280)

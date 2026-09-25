@@ -18,9 +18,9 @@ import { flagCapture, flagCapturePart } from "../db/schema";
 import { PART_SIZE, partKey, toDetail, toSummary } from "../captures/summary";
 import { inngest } from "../inngest/client";
 import { captureAudioReceived } from "../inngest/events";
-import { SHELL_ACTOR } from "../lib/shell-actor";
+import type { AppEnv } from "../auth/actor";
 
-type Ctx = Context<{ Bindings: Env }>;
+type Ctx = Context<AppEnv>;
 
 const invalid = (c: Context, message: string) => c.json({ error: "invalid_body", message } satisfies ApiError, 400);
 const notFound = (c: Context, message: string) => c.json({ error: "not_found", message } satisfies ApiError, 404);
@@ -41,18 +41,18 @@ const PartNumberParams = PartParams.extend({ partNumber: z.coerce.number().int()
 const paramError = (result: { success: true } | { success: false; error: z.core.$ZodError }, c: Context) =>
   result.success ? undefined : invalid(c, z.prettifyError(result.error));
 
-async function loadPart(db: Db, flagId: string, kind: CapturePartKind) {
+async function loadPart(db: Db, organizationId: string, flagId: string, kind: CapturePartKind) {
   const [row] = await db
     .select()
     .from(flagCapturePart)
-    .where(and(eq(flagCapturePart.flagId, flagId), eq(flagCapturePart.kind, kind), eq(flagCapturePart.organizationId, SHELL_ACTOR.organizationId)));
+    .where(and(eq(flagCapturePart.flagId, flagId), eq(flagCapturePart.kind, kind), eq(flagCapturePart.organizationId, organizationId)));
   return row;
 }
 
 /** Queues transcription; a queue failure is recorded on the capture so the dashboard shows it. */
-async function queueTranscription(db: Db, flagId: string) {
+async function queueTranscription(db: Db, organizationId: string, flagId: string) {
   try {
-    await inngest.send(captureAudioReceived.create({ organizationId: SHELL_ACTOR.organizationId, flagId }));
+    await inngest.send(captureAudioReceived.create({ organizationId, flagId }));
     await db.update(flagCapture).set({ transcriptStatus: "waiting", transcriptError: null }).where(eq(flagCapture.flagId, flagId));
   } catch (err) {
     const message = `Couldn't queue transcription: ${err instanceof Error ? err.message : String(err)}`;
@@ -60,7 +60,7 @@ async function queueTranscription(db: Db, flagId: string) {
   }
 }
 
-const captures = new Hono<{ Bindings: Env }>()
+const captures = new Hono<AppEnv>()
   .post(
     "/captures",
     zValidator("json", FlagCaptureManifest, (result, c) => paramError(result, c)),
@@ -71,7 +71,7 @@ const captures = new Hono<{ Bindings: Env }>()
       const kinds = manifest.parts.map((p) => p.kind);
       if (new Set(kinds).size !== kinds.length) return invalid(c, "Each part kind may appear once.");
       if (!kinds.includes("audio")) return invalid(c, "A capture needs its audio part.");
-      const { organizationId, userId } = SHELL_ACTOR;
+      const { organizationId, userId } = c.var.actor;
 
       const plan = await withDb(c, async (db) => {
         const existing = await db.select().from(flagCapturePart).where(eq(flagCapturePart.flagId, manifest.flagId));
@@ -130,7 +130,7 @@ const captures = new Hono<{ Bindings: Env }>()
       const length = Number(c.req.header("content-length") ?? "NaN");
       if (!c.req.raw.body || !Number.isFinite(length) || length < 1) return invalid(c, "A part needs a body with a Content-Length.");
       if (length > PART_SIZE) return invalid(c, `A part is at most ${PART_SIZE} bytes.`);
-      const part = await withDb(c, (db) => loadPart(db, flagId, kind));
+      const part = await withDb(c, (db) => loadPart(db, c.var.actor.organizationId, flagId, kind));
       if (!part) return notFound(c, `No ${kind} part registered for capture ${flagId}.`);
       const upload = c.env.FILES.resumeMultipartUpload(part.r2Key, part.uploadId);
       const uploaded = await upload.uploadPart(partNumber, c.req.raw.body);
@@ -145,7 +145,7 @@ const captures = new Hono<{ Bindings: Env }>()
       const { flagId, kind } = c.req.valid("param");
       const { parts } = c.req.valid("json");
       return withDb(c, async (db) => {
-        const part = await loadPart(db, flagId, kind);
+        const part = await loadPart(db, c.var.actor.organizationId, flagId, kind);
         if (!part) return notFound(c, `No ${kind} part registered for capture ${flagId}.`);
         if (part.status !== "received") {
           const upload = c.env.FILES.resumeMultipartUpload(part.r2Key, part.uploadId);
@@ -157,7 +157,7 @@ const captures = new Hono<{ Bindings: Env }>()
             .update(flagCapturePart)
             .set({ status: "received", receivedAt: new Date() })
             .where(and(eq(flagCapturePart.flagId, flagId), eq(flagCapturePart.kind, kind)));
-          if (kind === "audio") await queueTranscription(db, flagId);
+          if (kind === "audio") await queueTranscription(db, c.var.actor.organizationId, flagId);
         }
         const [capture] = await db.select().from(flagCapture).where(eq(flagCapture.flagId, flagId));
         const all = await db.select().from(flagCapturePart).where(eq(flagCapturePart.flagId, flagId));
@@ -170,7 +170,7 @@ const captures = new Hono<{ Bindings: Env }>()
     zValidator("param", PartParams, (result, c) => paramError(result, c)),
     async (c) => {
       const { flagId, kind } = c.req.valid("param");
-      const part = await withDb(c, (db) => loadPart(db, flagId, kind));
+      const part = await withDb(c, (db) => loadPart(db, c.var.actor.organizationId, flagId, kind));
       if (part?.status !== "received") return notFound(c, `No received ${kind} for capture ${flagId}.`);
       // Players seek with Range requests; R2 reads the range straight from the request headers.
       const object = await c.env.FILES.get(part.r2Key, { range: c.req.raw.headers });
@@ -194,9 +194,9 @@ const captures = new Hono<{ Bindings: Env }>()
     async (c) => {
       const { flagId } = c.req.valid("param");
       return withDb(c, async (db) => {
-        const audio = await loadPart(db, flagId, "audio");
+        const audio = await loadPart(db, c.var.actor.organizationId, flagId, "audio");
         if (audio?.status !== "received") return notFound(c, `Capture ${flagId} has no received audio.`);
-        await queueTranscription(db, flagId);
+        await queueTranscription(db, c.var.actor.organizationId, flagId);
         return c.body(null, 202);
       });
     },
@@ -206,7 +206,7 @@ const captures = new Hono<{ Bindings: Env }>()
       const rows = await db
         .select()
         .from(flagCapture)
-        .where(eq(flagCapture.organizationId, SHELL_ACTOR.organizationId))
+        .where(eq(flagCapture.organizationId, c.var.actor.organizationId))
         .orderBy(desc(flagCapture.registeredAt))
         .limit(100);
       const parts = rows.length
@@ -224,7 +224,7 @@ const captures = new Hono<{ Bindings: Env }>()
         const [capture] = await db
           .select()
           .from(flagCapture)
-          .where(and(eq(flagCapture.flagId, flagId), eq(flagCapture.organizationId, SHELL_ACTOR.organizationId)));
+          .where(and(eq(flagCapture.flagId, flagId), eq(flagCapture.organizationId, c.var.actor.organizationId)));
         if (!capture) return notFound(c, `No capture ${flagId}.`);
         const parts = await db.select().from(flagCapturePart).where(eq(flagCapturePart.flagId, flagId));
         return c.json(toDetail(capture, parts), 200);

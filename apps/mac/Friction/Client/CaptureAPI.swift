@@ -18,6 +18,7 @@ nonisolated struct CaptureAPI: Sendable {
     func uploadPart(flagId: UUID, kind: CapturePartKind, partNumber: Int, data: Data) async throws -> UploadedPart {
         var request = URLRequest(url: baseURL.appending(path: "v1/captures/\(flagId.uuidString.lowercased())/parts/\(kind.rawValue)/\(partNumber)"))
         request.httpMethod = "PUT"
+        request.identify()
         request.setValue("application/octet-stream", forHTTPHeaderField: "Content-Type")
         request.timeoutInterval = 120
         let (body, response) = try await session.upload(for: request, from: data)
@@ -30,9 +31,22 @@ nonisolated struct CaptureAPI: Sendable {
                               json: JSONEncoder.contract.encode(Body(parts: parts)))
     }
 
-    /// Where a received part streams from (supports Range requests, so a player can seek).
-    func contentURL(flagId: UUID, kind: CapturePartKind) -> URL {
-        baseURL.appending(path: "v1/captures/\(flagId.uuidString.lowercased())/parts/\(kind.rawValue)/content")
+    /// Downloads a received part once (as the acting person) and returns the cached local file. AVFoundation
+    /// has no public option for request headers, so players read this file rather than the service URL.
+    func cachedContent(flagId: UUID, kind: CapturePartKind) async throws -> URL {
+        let dir = URL.cachesDirectory.appending(path: "Friction/Recordings")
+        let file = dir.appending(path: "\(flagId.uuidString.lowercased())-\(kind.rawValue).\(kind == .video ? "mp4" : "m4a")")
+        if FileManager.default.fileExists(atPath: file.path) { return file }
+        var request = URLRequest(url: baseURL.appending(path: "v1/captures/\(flagId.uuidString.lowercased())/parts/\(kind.rawValue)/content"))
+        request.identify()
+        request.timeoutInterval = 120
+        let (temp, response) = try await session.download(for: request)
+        let status = (response as? HTTPURLResponse)?.statusCode ?? 0
+        guard status == 200 else { throw Failure(status: status, body: (try? String(contentsOf: temp, encoding: .utf8)) ?? "") }
+        try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        try? FileManager.default.removeItem(at: file)
+        try FileManager.default.moveItem(at: temp, to: file)
+        return file
     }
 
     func list() async throws -> [FlagCaptureSummary] { try await send("GET", "v1/captures") }
@@ -42,6 +56,7 @@ nonisolated struct CaptureAPI: Sendable {
     func retryTranscription(_ flagId: UUID) async throws {
         var request = URLRequest(url: baseURL.appending(path: "v1/captures/\(flagId.uuidString.lowercased())/transcribe"))
         request.httpMethod = "POST"
+        request.identify()
         let (body, response) = try await session.data(for: request)
         try check(body, response)
     }
@@ -49,6 +64,7 @@ nonisolated struct CaptureAPI: Sendable {
     private func send<T: Decodable>(_ method: String, _ path: String, json: Data? = nil) async throws -> T {
         var request = URLRequest(url: baseURL.appending(path: path))
         request.httpMethod = method
+        request.identify()
         request.timeoutInterval = 60
         if let json {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
