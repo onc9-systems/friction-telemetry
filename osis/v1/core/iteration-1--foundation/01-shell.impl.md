@@ -2,7 +2,7 @@
 
 **Iteration:** iteration-1--foundation
 **Depends on:** none
-**Status:** built locally 25 September 2026; Cloud deploy and Inngest sync pending the Worker in the Cloudflare dashboard
+**Status:** built 25 September 2026; Worker deployed and synced to Inngest Cloud (production) the same day
 **Build reference:** `01-shell.docs.md` (verified library docs and 15 deltas from this spec; read Part 0 before building)
 
 ## UX
@@ -339,6 +339,7 @@ Built in the orchestrator session at Andrés's request. The library facts come f
 - **End to end:** the Mac app posted to the local Worker and streamed both scripts into the answer card. Answered showed 2 citations, the class and "23 others". Provisional then routed showed the provisional line, Sent to owner, and "7 others". With the Worker down, the card shows the saved-on-this-Mac error.
 - **Database:** Neon `dev` branch migrated (pgvector 0.8.0, 20 tables, HNSW and GIN indexes) and seeded from the fixtures. The seed is idempotent.
 - **Inngest:** `ft/system.ping` completed against the local dev server (the `echo` step returned `receivedAt`).
+- **Inngest Cloud (25 Sep 2026):** app `friction-telemetry` synced to the Cloudnine account's `production` environment from `https://friction-telemetry-api.andres-6fe.workers.dev/api/inngest` (sync `6c36735a`), 7 functions (5 plus the two `onFailure` handlers). `ft/system.ping` run `01M3CEWRCZMQEEPX90DM4368ZT` completed in 449 ms with `receivedAt`. A ping without `sentAt` failed with `EventValidationError`, so the catalog schema is enforced in Cloud.
 
 ### Deviations from this spec, and why
 - The docs deltas in `01-shell.docs.md` Part 0 were all applied.
@@ -365,10 +366,13 @@ Built in the orchestrator session at Andrés's request. The library facts come f
 - **Wrangler:** `account_id` is pinned to the onc9 account (`6feca0ab...`). This machine sees a client's account too.
 - **Local Worker:** `bun run dev` in `apps/api` reads the Neon `dev` direct URL from `~/.secrets/projects.env` into `CLOUDFLARE_HYPERDRIVE_LOCAL_CONNECTION_STRING_HYPERDRIVE`; it is never written into the repo. Start the Inngest dev server with `npx inngest-cli@latest dev -u http://localhost:8787/api/inngest --no-discovery`; `bunx` skips the CLI binary download.
 - **Inngest tests** run in Node, not workerd, because `@inngest/test` pulls in `@opentelemetry/api`. `@inngest/test` does not run `wrapRequest`, so the middleware's hooks are tested directly (this settles docs Part 5 item 6).
+- **Inngest Cloud sync (25 Sep 2026):**
+  - The signing key saved on 24 Sep was not the Cloudnine production key; Inngest's register endpoint answered `401 Your signing key is invalid`. The key was replaced in `~/.secrets/master.env` (the old one is in `revoked.env`) and on the Worker. Context7 `/inngest/website` (apps/cloud troubleshooting): the signing key alone selects the environment an app syncs to.
+  - The Cloudnine plan caps any concurrency limit at 5. `document-index`'s account-wide `"workers-ai"` limit went from 10 to 5, or the sync is refused (`422 concurrency_limit`). Functions with no concurrency setting show the plan limit of 5 in Cloud.
+  - Unsigned `GET /api/inngest` answers 401 in cloud mode (SDK 4.21), so the `has_signing_key` check this spec planned is not available from outside; verify with a Cloud sync and a ping instead.
 - **Debug snapshots:** `-FrictionSnapshot <dir>` renders every pill state, the capture review panel and every surface to PNGs, then quits. It exists because `screencapture` needs Screen Recording and layer capture cannot see glass or scroll views. `PageScroll` lays pages out flat in that mode.
 
 ### Not verified yet
 - **Visual checks on a real screen:** the pill over another app's full-screen Space, not taking focus when clicked, and hover while Friction is inactive. The panel configuration is tested; the behavior needs one look on screen.
-- **Inngest Cloud sync and the Cloud ping:** these need the Worker created in the Cloudflare dashboard (rollout step 2), then a push to `main`. After that, check `GET /api/inngest` for `has_signing_key: true`.
 - **Swift package versions float:** the generated `.xcodeproj` (and its `Package.resolved`) is not committed, so versions float within their `from:` ranges. Pin with `exactVersion:` before a release build.
 - **Release signing:** a signed Release build (Developer ID) has not been made. Debug builds sign with Apple Development.

@@ -88,7 +88,7 @@ Keys to have in `~/.secrets/master.env` before the phase that needs them: Innges
 ## Success Criteria
 
 - [ ] After 01, a person can launch the signed app, see the pill over any app including full-screen ones without it taking focus, open every surface in the product's surface table, and watch a stubbed answer stream into an answer card from the local Worker.
-- [ ] After 01, the Inngest Cloud dashboard lists the `friction-telemetry` app synced from the deployed Worker, and a test event runs a function to completion there.
+- [x] After 01, the Inngest Cloud dashboard lists the `friction-telemetry` app synced from the deployed Worker, and a test event runs a function to completion there.
 - [ ] Phases 02 to 08 each merge to `main` with no non-additive edit to shell files (`project.yml` dependencies, contract names, existing schema columns, the window model). Any exception is recorded in that spec's Engineering Notes.
 - [ ] At the end of 08: a flag spoken on the Mac, reviewed and redacted, gets a cited answer and a resolution class within 5 seconds of Send against an initiative whose documents were uploaded through the initiative surface; an owner answer published to Q&A is returned for the same question on the next ask.
 
