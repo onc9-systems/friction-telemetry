@@ -46,7 +46,7 @@ nonisolated struct FlagCaptureManifest: Codable, Sendable, Hashable {
     let clickedAt: Date
     let sentAt: Date
     let parts: [CapturePartSpec]
-    let screen: ScreenSettings?
+    let screen: ScreenSettings
     let windows: [WindowEvent]
 
     enum CodingKeys: String, CodingKey { case flagId, clickedAt, sentAt, parts, screen, windows }

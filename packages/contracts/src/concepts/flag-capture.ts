@@ -51,9 +51,9 @@ export const FlagCaptureManifest = z.object({
   clickedAt: Instant,
   /** When the employee clicked send. */
   sentAt: Instant,
-  /** Video is absent when screen recording is not permitted; audio is always present. */
-  parts: z.array(CapturePartSpec).min(1),
-  screen: ScreenSettings.nullable(),
+  /** Exactly one video and one audio part: a flag always carries its screen recording. */
+  parts: z.array(CapturePartSpec).length(2),
+  screen: ScreenSettings,
   /** Frontmost-window changes in the captured span, oldest first. The first may predate the video. */
   windows: z.array(WindowEvent),
 });

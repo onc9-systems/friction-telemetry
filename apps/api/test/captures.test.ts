@@ -27,12 +27,14 @@ describe("alignWords", () => {
 });
 
 describe("capture intake validation", () => {
-  it("given a manifest without an audio part, then 400 naming the audio part", async () => {
-    const body = { ...manifestFixture, parts: manifestFixture.parts.filter((p) => p.kind !== "audio") };
-    const res = await postJson("/v1/captures", body);
-    expect(res.status).toBe(400);
-    expect(await res.json()).toStrictEqual({ error: "invalid_body", message: "A capture needs its audio part." });
-  });
+  for (const missing of ["video", "audio"] as const) {
+    it(`given a manifest without its ${missing} part, then 400: a flag always carries video and audio`, async () => {
+      const kept = manifestFixture.parts.find((p) => p.kind !== missing)!;
+      const res = await postJson("/v1/captures", { ...manifestFixture, parts: [kept] });
+      expect(res.status).toBe(400);
+      expect(((await res.json()) as { message: string }).message).toContain("parts");
+    });
+  }
 
   it("given a manifest with the same kind twice, then 400", async () => {
     const audio = manifestFixture.parts.find((p) => p.kind === "audio")!;
@@ -73,13 +75,16 @@ describe.skipIf(env.FT_DB_TESTS !== "1")("capture intake against the database", 
     const manifest: FlagCaptureManifest = {
       ...(manifestFixture as FlagCaptureManifest),
       flagId,
-      parts: [{ kind: "audio", contentType: "audio/mp4", byteSize: audio.byteLength, startedAt: "2026-09-25T10:42:30.214Z", endedAt: "2026-09-25T10:42:48.850Z" }],
+      parts: [
+        { kind: "video", contentType: "video/mp4", byteSize: 4, startedAt: "2026-09-25T10:42:18.000Z", endedAt: "2026-09-25T10:42:49.000Z" },
+        { kind: "audio", contentType: "audio/mp4", byteSize: audio.byteLength, startedAt: "2026-09-25T10:42:30.214Z", endedAt: "2026-09-25T10:42:48.850Z" },
+      ],
     };
     const plan = CaptureUploadPlan.parse(await (await postJson("/v1/captures", manifest)).json());
-    expect(plan.parts).toStrictEqual([{ kind: "audio", uploadId: plan.parts[0]!.uploadId, received: false }]);
+    expect(plan.parts.map((p) => [p.kind, p.received])).toStrictEqual([["video", false], ["audio", false]]);
 
     const again = CaptureUploadPlan.parse(await (await postJson("/v1/captures", manifest)).json());
-    expect(again.parts[0]!.uploadId).toBe(plan.parts[0]!.uploadId);
+    expect(again.parts.map((p) => p.uploadId)).toStrictEqual(plan.parts.map((p) => p.uploadId));
 
     const chunks = [audio.slice(0, plan.partSize), audio.slice(plan.partSize)];
     const uploaded = [];
@@ -94,7 +99,7 @@ describe.skipIf(env.FT_DB_TESTS !== "1")("capture intake against the database", 
     const done = await postJson(`/v1/captures/${flagId}/parts/audio/complete`, { parts: uploaded.reverse() });
     expect(done.status).toBe(200);
     const summary = FlagCaptureSummary.parse(await done.json());
-    expect(summary.parts.map((p) => [p.kind, p.status, p.byteSize])).toStrictEqual([["audio", "received", audio.byteLength]]);
+    expect(summary.parts.map((p) => [p.kind, p.status, p.byteSize])).toStrictEqual([["video", "uploading", 4], ["audio", "received", audio.byteLength]]);
 
     const stored = await env.FILES.get(`captures/org_acme/${flagId.toLowerCase()}/audio.m4a`);
     // Compare digests: a failing toStrictEqual on 8 MB arrays makes Vitest build a diff that exhausts the heap.
@@ -110,8 +115,8 @@ describe.skipIf(env.FT_DB_TESTS !== "1")("capture intake against the database", 
     const seek = await call("GET", content, { headers: { range: "bytes=100-199" } });
     expect([seek.status, seek.headers.get("content-range")]).toStrictEqual([206, `bytes 100-199/${audio.byteLength}`]);
     expect([...new Uint8Array(await seek.arrayBuffer())]).toStrictEqual([...audio.slice(100, 200)]);
-    const video = await call("GET", `/v1/captures/${flagId}/parts/video/content`);
-    expect(video.status).toBe(404);
+    const notYet = await call("GET", `/v1/captures/${flagId}/parts/video/content`);
+    expect(notYet.status).toBe(404);
 
     const detail = FlagCaptureDetail.parse(await (await call("GET", `/v1/captures/${flagId}`)).json());
     expect(detail.windows).toStrictEqual(manifest.windows);

@@ -65,16 +65,15 @@ struct CaptureEngineTests {
         #expect(PartPlan.count(byteSize: 16, partSize: 8) == 2)
     }
 
-    @Test func givenTheManifestFixture_whenDecodedAndReencoded_thenNullsAreWrittenExplicitly() throws {
+    @Test func givenTheManifestFixture_whenDecodedAndReencoded_thenNullWindowFieldsAreWrittenExplicitly() throws {
         let data = try Data(contentsOf: SampleData.bundledDirectory.appending(path: "flag-capture-manifest.json"))
         let manifest = try JSONDecoder.contract.decode(FlagCaptureManifest.self, from: data)
         #expect(manifest.parts.map(\.kind) == [.video, .audio])
         #expect(manifest.windows.map(\.reason) == [.activated, .activated, .titleChanged])
         let noScreen = FlagCaptureManifest(flagId: manifest.flagId, clickedAt: manifest.clickedAt, sentAt: manifest.sentAt,
-                                           parts: manifest.parts, screen: nil,
+                                           parts: manifest.parts, screen: manifest.screen,
                                            windows: [WindowEvent(at: manifest.sentAt, reason: .activated, appName: "Finder", bundleId: nil, windowTitle: nil)])
         let json = try #require(try JSONSerialization.jsonObject(with: JSONEncoder.contract.encode(noScreen)) as? [String: Any])
-        #expect(json["screen"] is NSNull)
         let window = try #require((json["windows"] as? [[String: Any]])?.first)
         #expect(window["bundleId"] is NSNull)
         #expect(window["windowTitle"] is NSNull)

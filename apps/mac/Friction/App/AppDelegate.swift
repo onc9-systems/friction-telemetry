@@ -48,6 +48,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         statusMenu = StatusMenu(model: model)
         statusMenu.onOpen = { [weak self] in self?.mainWindow.show() }
+        // `-FrictionOpenSurface intake`: opens the main window on that surface at launch (any build).
+        if let raw = UserDefaults.standard.string(forKey: "FrictionOpenSurface"), let surface = Surface(rawValue: raw) {
+            mainWindow.show(surface: surface)
+        }
         #if DEBUG
         debugMenu = DebugMenu(model: model, pill: pill, showReview: { [weak self] in
             guard let self else { return }
@@ -56,10 +60,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         statusMenu.debugMenu = debugMenu.menu
         if let dir = SnapshotRunner.directory {
             SnapshotRunner.run(model: model, pill: pill, review: review, main: mainWindow, into: dir)
-        }
-        // `-FrictionOpenSurface intake`: opens the main window on that surface at launch.
-        if let raw = UserDefaults.standard.string(forKey: "FrictionOpenSurface"), let surface = Surface(rawValue: raw) {
-            mainWindow.show(surface: surface)
         }
         // `-FrictionAutoFlag <seconds>`: clicks the hand, waits, clicks send. End-to-end check without a person.
         let autoFlag = UserDefaults.standard.double(forKey: "FrictionAutoFlag")

@@ -70,7 +70,7 @@ const captures = new Hono<AppEnv>()
       const manifest = { ...body, flagId: body.flagId.toLowerCase() };
       const kinds = manifest.parts.map((p) => p.kind);
       if (new Set(kinds).size !== kinds.length) return invalid(c, "Each part kind may appear once.");
-      if (!kinds.includes("audio")) return invalid(c, "A capture needs its audio part.");
+      if (!kinds.includes("video") || !kinds.includes("audio")) return invalid(c, "A capture needs its video and audio parts.");
       const { organizationId, userId } = c.var.actor;
 
       const plan = await withDb(c, async (db) => {

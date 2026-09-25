@@ -28,9 +28,11 @@ final class CaptureEngine {
     }
 
     enum Failure: Error, LocalizedError {
-        case microphoneDenied, flagInProgress, noFlag
+        case microphoneDenied, flagInProgress, noFlag, screenNotRecording, noVideo
         var errorDescription: String? {
             switch self {
+            case .screenNotRecording: "Friction needs Screen Recording to flag. Allow it in System Settings, Privacy and Security, Screen and System Audio Recording, then quit and reopen Friction."
+            case .noVideo: "The screen recording wasn't ready, so nothing was sent. Try again in a few seconds."
             case .microphoneDenied: "Friction needs the microphone to record a flag. Allow it in System Settings, Privacy and Security, Microphone."
             case .flagInProgress: "A flag is already being recorded."
             case .noFlag: "No flag is being recorded."
@@ -93,6 +95,7 @@ final class CaptureEngine {
     @discardableResult
     func startFlag() async throws -> UUID {
         guard activeFlag == nil, !isStartingFlag else { throw Failure.flagInProgress }
+        guard screenState == .recording else { throw Failure.screenNotRecording }
         isStartingFlag = true
         defer { isStartingFlag = false }
         guard await Self.microphoneAllowed() else { throw Failure.microphoneDenied }
@@ -115,23 +118,21 @@ final class CaptureEngine {
         defer { reset() }
         let sent = CaptureClock.now()
         let recording = try voice.stop()
-        var parts: [CapturePartSpec] = []
-        var windowsFrom = clock.wall(flag.clickedHost - ScreenBuffer.retention)
-
-        if screenState == .recording {
-            await screen.waitForCoverage(until: sent, timeout: ScreenBuffer.segmentSeconds + 1.5)
-            if let clip = screen.clip(from: flag.clickedHost - ScreenBuffer.retention, to: sent) {
-                let raw = flag.directory.appending(path: "video-fragments.mp4")
-                let video = flag.directory.appending(path: PackagedFlag.fileName(for: .video))
-                try clip.data.write(to: raw)
-                try await Self.remuxFromZero(raw, to: video)
-                try? FileManager.default.removeItem(at: raw)
-                let size = try FileManager.default.attributesOfItem(atPath: video.path)[.size] as? Int ?? 0
-                parts.append(CapturePartSpec(kind: .video, contentType: "video/mp4", byteSize: size,
-                                             startedAt: clock.wall(clip.start), endedAt: clock.wall(clip.end)))
-                windowsFrom = clock.wall(clip.start)
-            }
+        // A flag always carries its screen recording: without video there is nothing to send.
+        await screen.waitForCoverage(until: sent, timeout: ScreenBuffer.segmentSeconds + 1.5)
+        guard screenState == .recording, let clip = screen.clip(from: flag.clickedHost - ScreenBuffer.retention, to: sent) else {
+            try? FileManager.default.removeItem(at: flag.directory)
+            throw Failure.noVideo
         }
+        let raw = flag.directory.appending(path: "video-fragments.mp4")
+        let video = flag.directory.appending(path: PackagedFlag.fileName(for: .video))
+        try clip.data.write(to: raw)
+        try await Self.remuxFromZero(raw, to: video)
+        try? FileManager.default.removeItem(at: raw)
+        let size = try FileManager.default.attributesOfItem(atPath: video.path)[.size] as? Int ?? 0
+        var parts = [CapturePartSpec(kind: .video, contentType: "video/mp4", byteSize: size,
+                                     startedAt: clock.wall(clip.start), endedAt: clock.wall(clip.end))]
+        let windowsFrom = clock.wall(clip.start)
 
         let audioSize = try FileManager.default.attributesOfItem(atPath: recording.url.path)[.size] as? Int ?? 0
         parts.append(CapturePartSpec(kind: .audio, contentType: "audio/mp4", byteSize: audioSize,
@@ -142,7 +143,7 @@ final class CaptureEngine {
             clickedAt: clock.wall(flag.clickedHost),
             sentAt: clock.wall(sent),
             parts: parts,
-            screen: parts.contains { $0.kind == .video } ? screen.settings : nil,
+            screen: screen.settings,
             windows: windows.slice(from: windowsFrom, to: clock.wall(sent))
         )
         try JSONEncoder.contract.encode(manifest).write(to: flag.directory.appending(path: "manifest.json"))

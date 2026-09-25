@@ -50,7 +50,7 @@ struct IntakeView: View {
         case .recording: "Screen buffer on: the last \(Int(ScreenBuffer.retention)) seconds, 1280 wide at 5 frames a second, kept on this Mac until a flag is sent."
         case .starting: "Screen buffer starting."
         case .off: "Screen buffer off."
-        case .needsPermission: "Screen buffer off: Friction needs Screen Recording (System Settings, Privacy and Security). Quit and reopen Friction after allowing it. Flags send voice only until then."
+        case .needsPermission: "Screen buffer off: Friction needs Screen Recording (System Settings, Privacy and Security). Quit and reopen Friction after allowing it. Flagging is off until then."
         case .failed(let message): "Screen buffer stopped: \(message). Retrying."
         }
     }
@@ -96,7 +96,6 @@ struct IntakeView: View {
                 }
                 if let remote {
                     ForEach(remote.parts, id: \.kind) { part in line(part.kind == .video ? "Video" : "Audio", cloudStatus(part)) }
-                    if !remote.parts.contains(where: { $0.kind == .video }) { line("Video", "None: screen recording was off for this flag") }
                     line("Windows", "\(remote.windowCount) frontmost-window changes")
                     transcript(remote)
                 } else {
