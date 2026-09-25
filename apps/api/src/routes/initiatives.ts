@@ -2,7 +2,7 @@
 import { Hono } from "hono";
 import type { AppEnv } from "../auth/actor";
 import { zValidator } from "@hono/zod-validator";
-import { and, eq, inArray, isNotNull, isNull, sql } from "drizzle-orm";
+import { and, eq, inArray, isNotNull, isNull, notInArray, sql } from "drizzle-orm";
 import * as z from "zod";
 import {
   CreateInitiativeBody,
@@ -131,7 +131,7 @@ const initiatives = new Hono<AppEnv>()
         if (Object.keys(fields).length > 0) await tx.update(initiative).set(fields).where(eq(initiative.id, id));
         if (theses) {
           const keep = theses.flatMap((t) => (t.id ? [t.id] : []));
-          await tx.delete(thesis).where(and(eq(thesis.initiativeId, id), keep.length ? sql`${thesis.id} <> all(${keep})` : sql`true`));
+          await tx.delete(thesis).where(and(eq(thesis.initiativeId, id), keep.length ? notInArray(thesis.id, keep) : undefined));
           for (const [position, t] of theses.entries()) {
             await tx
               .insert(thesis)
