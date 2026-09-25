@@ -11,7 +11,7 @@ const question = FIXTURES["questions.json"].parse(questionsJson)[0]!;
 const post = (body: string, headers: Record<string, string> = {}) =>
   exports.default.fetch("http://api.test/v1/events", {
     method: "POST",
-    headers: { "Content-Type": "application/json", ...headers },
+    headers: { "Content-Type": "application/json", "x-ft-user": "usr_romina", ...headers },
     body,
   });
 

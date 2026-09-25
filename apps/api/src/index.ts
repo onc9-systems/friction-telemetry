@@ -2,6 +2,8 @@ import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
 import { serve } from "inngest/hono";
 import type { ApiError } from "@friction-telemetry/contracts";
+import { type AppEnv, requireActor } from "./auth/actor";
+import { LEADER_ROUTES, requireRole } from "./auth/gates";
 import { inngest } from "./inngest/client";
 import { functions } from "./inngest/functions";
 import auth from "./routes/auth";
@@ -14,7 +16,11 @@ import me from "./routes/me";
 import qa from "./routes/qa";
 import system from "./routes/system";
 
-const app = new Hono<{ Bindings: Env }>();
+const app = new Hono<AppEnv>();
+
+// Middleware runs only for handlers registered after it, so identity and gates come before every route.
+app.use("/v1/*", requireActor);
+for (const [method, path] of LEADER_ROUTES) app.on(method, path, requireRole("leader"));
 
 // Every surface file owns full paths under /v1, so feature phases add handlers inside their file, never here.
 app.route("/v1", system);

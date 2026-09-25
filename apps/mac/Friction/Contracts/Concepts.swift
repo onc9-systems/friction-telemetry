@@ -22,6 +22,12 @@ nonisolated struct Workspace: Codable, Sendable, Hashable {
     let signedInUserId: String
 }
 
+/// The fixed people directory (`fixed-directory.json`): the only people who can act on the service until sign-in.
+nonisolated struct Directory: Codable, Sendable, Hashable {
+    let organization: Organization
+    let people: [Person]
+}
+
 nonisolated struct Initiative: Codable, Sendable, Hashable, Identifiable {
     let id: UUID
     let organizationId: String

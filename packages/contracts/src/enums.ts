@@ -3,6 +3,8 @@
 export const INITIATIVE_STATUS = ["draft", "live", "closed"] as const;
 export const THESIS_VERDICT = ["holding", "breaking", "no_evidence"] as const;
 export const MEMBER_ROLE = ["affected", "owner", "leader"] as const;
+/** Organization-level roles (02-auth-workspace). Distinct from an initiative's `MEMBER_ROLE`. */
+export const ROLE = ["employee", "leader", "admin"] as const;
 export const DOCUMENT_VERSION_STATUS = ["uploading", "extracting", "indexing", "ready", "failed"] as const;
 export const RESOLUTION_CLASS = ["answered", "unanswerable", "still_stuck"] as const;
 export const QA_ENTRY_STATUS = ["draft", "published", "needs_reapproval"] as const;

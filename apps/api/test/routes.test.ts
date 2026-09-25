@@ -27,7 +27,9 @@ const NOT_IMPLEMENTED: Array<[method: string, path: string, flow: number]> = [
   ["POST", "/api/auth/sign-in/social", 1],
 ];
 
-const call = (method: string, path: string) => exports.default.fetch(`http://api.test${path}`, { method });
+// A leader, so the 501 table exercises "not built yet" rather than the role gates (test/identity.test.ts).
+const call = (method: string, path: string) =>
+  exports.default.fetch(`http://api.test${path}`, { method, headers: { "x-ft-user": "usr_andres" } });
 
 describe("routes", () => {
   for (const [method, path, flow] of NOT_IMPLEMENTED) {
