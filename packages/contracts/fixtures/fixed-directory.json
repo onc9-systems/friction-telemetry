@@ -17,13 +17,6 @@
       "email": "romina@acmelogistics.com",
       "title": null,
       "leader": false
-    },
-    {
-      "id": "usr_amir",
-      "name": "Amir",
-      "email": "amir@acmelogistics.com",
-      "title": "Executive",
-      "leader": true
     }
   ]
 }

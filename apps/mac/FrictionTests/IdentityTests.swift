@@ -26,11 +26,11 @@ final class IdentityTests {
         return request.value(forHTTPHeaderField: "x-ft-user")
     }
 
-    @Test func givenTheBundledDirectory_thenItIsExactlyAndresRominaAndAmirInAcme() {
+    @Test func givenTheBundledDirectory_thenItIsExactlyAndresAndRominaInAcme() {
         #expect(directory.organization == Organization(id: "org_acme", name: "Acme Logistics"))
-        #expect(directory.people.map(\.id) == ["usr_andres", "usr_romina", "usr_amir"])
-        #expect(directory.people.map(\.name) == ["Andrés Campos", "Romina", "Amir"])
-        #expect(directory.people.map(\.leader) == [true, false, true])
+        #expect(directory.people.map(\.id) == ["usr_andres", "usr_romina"])
+        #expect(directory.people.map(\.name) == ["Andrés Campos", "Romina"])
+        #expect(directory.people.map(\.leader) == [true, false])
     }
 
     @Test func givenAMacNeverSetToAnyone_whenTheAppLoads_thenItActsAsRominaWithoutLeaderPermission() throws {
@@ -40,18 +40,18 @@ final class IdentityTests {
         #expect(headerSent() == "usr_romina")
     }
 
-    @Test func givenRomina_whenSwitchedToAmir_thenRequestsAreSentAsAmirAndHeSeesTheInitiativeSurface() throws {
+    @Test func givenRomina_whenSwitchedToAndres_thenRequestsAreSentAsAndresAndHeSeesTheInitiativeSurface() throws {
         let m = try model()
         m.sentItems = [try #require(m.data.record.first)]
-        m.switchPerson(to: "usr_amir")
-        #expect(m.me.id == "usr_amir")
+        m.switchPerson(to: "usr_andres")
+        #expect(m.me.id == "usr_andres")
         #expect(m.isLeader == true)
-        #expect(headerSent() == "usr_amir")
+        #expect(headerSent() == "usr_andres")
         #expect(m.sentItems.isEmpty)
     }
 
-    @Test func givenAmirOnInsights_whenSwitchedToRomina_thenSheLandsOnHomeWithoutLeaderPermission() throws {
-        Identity.userId = "usr_amir"
+    @Test func givenAndresOnInsights_whenSwitchedToRomina_thenSheLandsOnHomeWithoutLeaderPermission() throws {
+        Identity.userId = "usr_andres"
         let m = try model()
         m.selection = .insights
         m.switchPerson(to: "usr_romina")
@@ -62,6 +62,13 @@ final class IdentityTests {
     @Test func givenSomeoneOutsideTheDirectory_whenSwitchedTo_thenNothingChanges() throws {
         let m = try model()
         m.switchPerson(to: "usr_sam")
+        #expect(m.me.id == "usr_romina")
+        #expect(headerSent() == "usr_romina")
+    }
+
+    @Test func givenAMacSetToAmirBeforeHeWasRemoved_whenTheAppLoads_thenItActsAsRomina() throws {
+        Identity.userId = "usr_amir"
+        let m = try model()
         #expect(m.me.id == "usr_romina")
         #expect(headerSent() == "usr_romina")
     }

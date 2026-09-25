@@ -18,7 +18,7 @@ The analysis layer (triage, clustering, thesis scoring, insight generation) is a
 - Signing: Team `P62A3QS593`, identity `Developer ID Application`. See the global CLAUDE.md for notarization.
 - Package manager: bun. Monorepo: turbo.
 - Worker surface references: real Granola screens are in `osis/references/granola/`, with notes on what to take from each.
-- Identity until phase 02: three fixed people in `packages/contracts/fixtures/fixed-directory.json`. Service routes read `c.var.actor` (`Hono<AppEnv>`), never a constant; every Mac request calls `request.identify()`. Details in `02-auth-workspace.impl.md`, Engineering Notes.
+- Identity until phase 02: two fixed people (Andrés, leader; Romina, employee) in `packages/contracts/fixtures/fixed-directory.json`. Service routes read `c.var.actor` (`Hono<AppEnv>`), never a constant; every Mac request calls `request.identify()`. Details in `02-auth-workspace.impl.md`, Engineering Notes.
 
 ## Build and release
 
