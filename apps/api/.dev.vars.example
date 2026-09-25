@@ -1,3 +1,12 @@
 # Copy to .dev.vars for local development. Types are generated from this file, so they do not depend on anyone's local secrets.
 # INNGEST_DEV=1 points the Inngest SDK at the local dev server (default mode is cloud).
 INNGEST_DEV=1
+
+# Local development: unlocks the x-ft-dev-user / x-ft-dev-org actor headers and the stub-script header.
+ENVIRONMENT=development
+
+# Jev (TypeSafe) for the answer pipeline's judgments (~/.secrets/master.env). Production: a Worker secret.
+TYPESAFE_API_KEY=
+
+# Local development reaches Workers AI, Neon and Jev over the internet: stretch the answer pipeline's timeouts.
+PIPELINE_BUDGET_SCALE=3

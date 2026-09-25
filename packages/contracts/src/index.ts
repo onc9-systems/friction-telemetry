@@ -15,6 +15,8 @@ export * from "./concepts/fix";
 export * from "./concepts/health";
 export * from "./concepts/notice";
 export * from "./concepts/my-record";
+export * from "./concepts/thread";
+export * from "./concepts/views";
 export * from "./sse";
 export * from "./events";
 export * from "./api";

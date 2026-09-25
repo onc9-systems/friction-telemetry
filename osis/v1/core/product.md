@@ -104,6 +104,7 @@ Every v1 flow, grouped by who starts it. Numbers are stable references for specs
 
 6. **Flag.** Press or hold, speak, release, review, redact, send (the dominant flow above). The flag runs through the answer pipeline (flow 8). A flag sent without a connection waits on the Mac and sends when the connection returns, still exactly as the employee approved it.
 7. **Question.** A chat message about an initiative the employee belongs to. Same answer pipeline.
+   - **7a. Follow-up.** The employee replies to any answer, from a flag or a question. The reply stays in that initiative, is answered with the conversation so far as context, and counts as its own signal.
 8. **Answer pipeline.** Shared by flags and questions. Three things start at once:
    - A fast judgment of which initiative the event belongs to, when the employee belongs to more than one.
    - A fast judgment of whether the initiative's documents and Q&A are likely to cover it.
@@ -206,4 +207,5 @@ v1 runs on macOS only.
 
 ## Sessions
 
+- 2026-09-25: Added flow 7a, follow-ups (Devin session)
 - 2026-09-23: Added the flow catalogue (21 flows), Q&A concept, signal-regardless-of-class rule · `claude -r cf097e99-94f3-4cce-9596-642e0c0c18b8`

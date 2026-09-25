@@ -10,13 +10,28 @@
   "observability": { "enabled": true, "logs": { "head_sampling_rate": 1 } },
   // Hyperdrive config friction-telemetry-prod, origin the Neon main branch (direct URL).
   // Locally, set CLOUDFLARE_HYPERDRIVE_LOCAL_CONNECTION_STRING_HYPERDRIVE to the dev branch URL; never commit it.
-  "hyperdrive": [{ "binding": "HYPERDRIVE", "id": "8f08ea1a779445e486cece59c14a3178" }],
+  "hyperdrive": [
+    { "binding": "HYPERDRIVE", "id": "8f08ea1a779445e486cece59c14a3178" },
+    // friction-telemetry-prod-nocache: same origin, caching disabled. The answer path reads through it, so a
+    // published Q&A entry or a replaced document takes effect on the next question (Hyperdrive never
+    // invalidates cached reads on write). Locally: CLOUDFLARE_HYPERDRIVE_LOCAL_CONNECTION_STRING_HYPERDRIVE_NOCACHE.
+    { "binding": "HYPERDRIVE_NOCACHE", "id": "5e9a5044d94e4e1fba53444a3a8cfaad" }
+  ],
   "r2_buckets": [{ "binding": "FILES", "bucket_name": "friction-telemetry-docs" }],
   // Workers AI always runs against the real account, even in wrangler dev. Stubbed in tests.
   "ai": { "binding": "AI" },
   "vars": {
     // Multiplier on the SSE stub's scripted delays. 1 is realistic pacing, 0 streams at once (tests).
-    "STUB_PACE": "1"
+    "STUB_PACE": "1",
+    // "development" unlocks the x-ft-dev-* actor headers and the x-ft-stub-script header. .dev.vars sets it.
+    "ENVIRONMENT": "production",
+    // AI Gateway that carries Claude (Unified Billing, no Anthropic key) and logs every call.
+    "AI_GATEWAY_ID": "default",
+    // "stub" forces the scripted stream everywhere: a one-variable rollback for a demo.
+    "ANSWER_PIPELINE": "live",
+    // Multiplies every answer-pipeline timeout. 1 in production; .dev.vars raises it, because local development
+    // reaches Workers AI, Neon and Jev over the internet.
+    "PIPELINE_BUDGET_SCALE": "1"
   },
   "dev": { "port": 8787 }
 }

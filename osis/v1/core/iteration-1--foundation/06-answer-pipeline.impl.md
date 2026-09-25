@@ -2,7 +2,7 @@
 
 **Iteration:** iteration-1--foundation
 **Depends on:** 04-capture, 05-initiatives-documents
-**Status:** not started
+**Status:** backend built (branch `iteration-1/06-answer-pipeline`); Mac client with the frontend engineer
 
 ## UX
 
@@ -49,7 +49,7 @@ Timing the employee should feel: the header within 100 ms of Send, the first ans
 - The shell's Ask layout stands: thread, composer, scope label "Asking about: Procurement rollout" with a menu of the employee's live initiatives by full name. The scope is always explicit in Ask; Friction does not pick the initiative for questions. Default scope: the initiative of the employee's last question, else the first live initiative alphabetically.
 - Composer: multi-line, grows to 6 lines then scrolls. Return sends, Shift-Return adds a line. Placeholder "Ask about Procurement rollout". Under it, small: "Only what you type is sent. Leaders see questions without your name." Over 4,000 characters, Send disables and the line reads "Keep a question under 4,000 characters." The text is never cut.
 - While an answer streams, Send is disabled and reads "Answering". The employee can keep typing the next question.
-- Each question is answered on its own; earlier questions in the thread are not used as context in this phase.
+- **Follow-ups (decided 25 September 2026).** Every answer, from a flag or a question, can be replied to. A reply is a new Question with `inReplyTo` naming the turn it answers. It stays in that turn's initiative, it is answered with the earlier turns of its thread as context, and it counts as its own signal with its own class and count. The service rewrites the reply to stand on its own before retrieval, judgment and counting ("And for 20,000?" becomes "Do I need finance approval for a 20,000 AED purchase order?"). The employee's own words are what the thread shows. "This didn't solve it" stays a separate, explicit action: the service never infers Still stuck from a reply.
 - The thread lists this Mac's questions for the selected scope, newest at the bottom, each with its finished card. Switching scope shows that initiative's thread.
 - No suggested prompts, no follow-up chips, ever.
 - Empty state (shell): "Ask anything about the changes you're part of. Answers come from the initiative's documents."
@@ -284,10 +284,51 @@ Jev and Claude are faked at the HTTP boundary (`TypeSafeClient` `fetch` config o
 6. **Late outbox answers never open a panel** (over 60 s after Send). Default built.
 7. **Zero others copy** "You're the first to raise this." rather than hiding the line. Default built.
 8. **Provisional copy** changed from the shell's "Sent to the owner" to "Probably not covered in the docs. Still checking." Default built.
-9. **Ask follow-ups** answered independently, and no "All my initiatives" scope in Ask. Default built.
+9. **Ask follow-ups**: resolved 25 September 2026, threaded follow-ups (see Ask). Still no "All my initiatives" scope in Ask.
+
+## Engineering Notes
+
+Built 25 September 2026 on `iteration-1/06-answer-pipeline`, together with the service side of 05 (Andrés: "05 + 06 backend"). The Mac client is out of this branch; the client contract is `apps/api/docs/answer-pipeline.md`.
+
+**Decisions that depart from this spec or the brief**
+
+- **Claude through Cloudflare AI Gateway, no Anthropic key** (Andrés, 25 September 2026). `env.AI.gateway(AI_GATEWAY_ID).run({ provider: "anthropic", endpoint: "v1/messages", ... })` forwards the native Messages API (search_result blocks, citations, streaming) and returns Anthropic's own Response; with no provider key on the request, AI Gateway bills through Unified Billing (developers.cloudflare.com/ai-gateway/features/unified-billing, credential precedence; worker-binding-methods). No `@anthropic-ai/sdk` dependency: `src/ai/claude.ts` parses the SSE itself. **Blocked on credits:** the gateway answers `402 Insufficient wholesale credits` until credits are loaded on the onc9 account. Until then every Claude call takes the spec's degraded path (answered band shows the passages as the answer).
+- **Threaded follow-ups** replace "each question answered on its own" (open decision 9). Contract: `Question.inReplyTo`, `meta.inReplyTo`, `GET /v1/events/:id/thread`, `Thread` view. Schema: `question.in_reply_to_*`, `thread_root_*`, `standalone_text`. The standalone rewrite is a Claude call (1.5 s budget); on failure the previous turn and the reply are concatenated.
+- **Injection Noul gets criteria.** The cookbook wording alone read 0.78 on an ordinary approval-thresholds passage in a packed request and excluded the one passage that answered. With `INJECTION_CRITERIA` (jev.ts) it read 0.03 on policy text and 0.99 on a planted injection (jev-1.13.0).
+- **Full text arm matches any term** (`&` rewritten to `|` in the `websearch_to_tsquery` output). With every term required, an employee's sentence matched no passage; `ts_rank_cd` still ranks coverage first.
+- **RRF fused in TypeScript** over one SQL statement with four arms (vector and text, passages and Q&A), not inside SQL: one round trip still, and `fuseRrf` is a pure, tested function.
+- **The pipeline trace is written with the answer**, in the same transaction, not by an Inngest `store-evidence` step, so `ft/event.answered` stays small and the trace exists whenever the answer does.
+- **Routing is written with the answer** (`routed_at` in the persist transaction), not by an Inngest step: the card's `routed` flag and the owner list agree the moment `done` arrives.
+- **Citations: one row per distinct passage**, at the offset of its first cited sentence group, with its cited sentences joined (the `citation_answer_ordinal_idx` unique index allows one row per ordinal).
+- **`qaApprovedBy` is `qaApprovedByUserId`** on the wire: there is no people table until 02.
+- **Screenshots** are fetched from R2 and sent to Claude as an image block when `screenshotKey` is set (open decision 4 still stands: sub-processors are not named in capture review).
+
+**Implementation choices**
+
+- Actor: `src/lib/actor.ts` returns the shell's sample employee; in development `x-ft-dev-user` and `x-ft-dev-org` act as anyone. Phase 02 replaces the function body only.
+- `openFreshDb` over the new Hyperdrive config `friction-telemetry-prod-nocache` (id `5e9a5044d94e4e1fba53444a3a8cfaad`, created 25 September 2026, caching disabled, origin the Neon main branch) for the answer path, thread reads and document status polling. `withDb` closes every connection.
+- Timeouts race rather than pass `AbortSignal` into bindings: a signal cannot cross the binding proxy used by `getPlatformProxy`. A Claude stream aborts by cancelling its body.
+- `PIPELINE_BUDGET_SCALE` (var, 1 in production, 3 in `.dev.vars`) stretches every pipeline timeout for local development, which reaches Workers AI, Neon and Jev over the internet.
+- Query embedding uses `instruction` ("Given an employee's question or problem report about a change at their organization, retrieve the policy or guide passages that answer it") instead of the model's web-search default. Passages embed their heading path with their text.
+- `POST /v1/events/:id/initiative` is flags only (`409 question_scope_fixed`); it supersedes the earlier answer and clears the class before re-answering.
+- `GET /v1/me/initiatives` added for the Ask scope menu and the capture chip.
+- Reconcile-class (Inngest) re-judges with Jev only when the answer was Answered without Jev; it can downgrade to Unanswerable and route, never upgrade (an answer cannot be written after the fact).
+- Neon branch for this worktree: `iteration-1-06-answer-pipeline` (`br-spring-wave-b2bp0ft8`, from main), URL in `~/.secrets/projects.env` as `FRICTION_TELEMETRY_06__DATABASE_URL`. Migration `0002_answer-pipeline.sql` is applied there. Phase 04's uncommitted migration is also `0002`: whichever merges second deletes its own migration and regenerates.
+
+**Library references**: Context7 `/cloudflare/cloudflare-docs` (AI Gateway binding and Unified Billing, toMarkdown, Hyperdrive caching, getPlatformProxy), `/websites/inngest` (v4 createFunction, onFailure, typed `eventType.create`, idempotency), `/pgvector/pgvector` (RRF, iterative scans). `@typesafe-ai/sdk` 0.6.0 read from its shipped type declarations (RequestOptions, RetryPolicy, `noul`, `choice`). Workers AI Qwen3 input schema fetched 25 September 2026.
+
+**Tests and what they prove**
+
+- `test/answer-logic.test.ts` (workerd, 31 tests). Mutations seen killed: injection check removed; answeredBand 0.7 to 0.5; Noul guard deleted; provisional `<` to `<=`; AUTO_ACCEPT 0.8 to 0.08; RRF 0-based ranks; citation numbering off by one; chip offset forced to 0; `search_result_index` off by one; heading stack not reset; slides unsorted; uncited-text guard loosened.
+- `test/retrieve.node.test.ts` (Postgres with pgvector, `FT_DB_URL` required, skipped otherwise). Mutations seen killed: active-version condition dropped; `removed_at` condition dropped; published-only Q&A dropped; organization filter dropped; live-initiative condition dropped.
+- `scripts/e2e.ts`: every flow against real services, no server. Last run (25 September 2026): HTML (6 passages) and PPTX (3 passages) indexed; the covered question was Answered, citing "2.2 Approval thresholds"; the follow-up was Answered with the same passage; the uncovered question showed the provisional line, then Unanswerable and routed; the replay matched; the multi-initiative flag was routed by Jev at 0.98 with two correct citations; still stuck marked the cited document and the owner list showed the reason; an affected employee got 404 on the owner list.
+- Not yet covered: the eval harness (`apps/api/eval/`) and THRESHOLDS tuning; "N others" above zero end to end (the paraphrase's embedding timed out from the laptop; cosine 0.98 for a follow-up and 0.31 for an unrelated question were measured); Claude's written answers (credits); the reducer tests on the Mac.
+
+**Measured latency** (laptop in the UAE, through the binding proxy, so an upper bound): Jev early 1.3 to 2.3 s, Jev verification 0.4 to 1.3 s after retrieval, query embedding 0.2 to 3 s. Production latencies are to be measured on the deployed Worker.
 
 ---
 
 ## Sessions
 
+- 2026-09-25: Backend built with 05's service side; threaded follow-ups; Claude through AI Gateway; Engineering Notes (Devin session)
 - 2026-09-24: Initial spec · `claude -r cf097e99-94f3-4cce-9596-642e0c0c18b8`
