@@ -24,7 +24,7 @@ export const documentIndexFn = inngest.createFunction(
     retries: 4,
     concurrency: [
       { key: "event.data.organizationId", limit: 3 },
-      { scope: "account", key: '"workers-ai"', limit: 10 },
+      { scope: "account", key: '"workers-ai"', limit: 5 },
     ],
     onFailure: async (ctx) => {
       const { env } = ctx as unknown as WithEnv;
