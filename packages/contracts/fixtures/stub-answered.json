@@ -6,7 +6,11 @@
       "eventId": "00000000-0000-4000-8000-000000000000",
       "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
       "initiativeName": "Procurement rollout",
-      "initiativeConfidence": 0.92
+      "initiativeConfidence": 0.92,
+      "switchable": false,
+      "alternatives": [],
+      "switchedFrom": null,
+      "inReplyTo": null
     }
   },
   {
@@ -95,7 +99,14 @@
       "qaEntryId": null,
       "quote": "Once every approver has signed off in Ariba, the purchase order is released to the supplier automatically. Buyers do not need to contact Finance to release an approved PO.",
       "documentTitle": "Procurement Policy v3",
-      "locator": "Section 4.2 Approvals"
+      "locator": "Section 4.2 Approvals",
+      "charOffset": 173,
+      "sourceKind": "document",
+      "headingPath": "4.2 Approvals",
+      "passageText": "Once every approver has signed off in Ariba, the purchase order is released to the supplier automatically. Buyers do not need to contact Finance to release an approved PO.",
+      "suspect": false,
+      "qaApprovedByUserId": null,
+      "qaApprovedAt": null
     }
   },
   {
@@ -107,14 +118,22 @@
       "qaEntryId": null,
       "quote": "If an approved PO shows Pending release for more than one working day, open it and choose Request release. The request goes to the Procurement team, not to Finance.",
       "documentTitle": "Ariba Buyer Guide",
-      "locator": "Section 2.3 Tracking release"
+      "locator": "Section 2.3 Tracking release",
+      "charOffset": 173,
+      "sourceKind": "document",
+      "headingPath": "2.3 Tracking release",
+      "passageText": "If an approved PO shows Pending release for more than one working day, open it and choose Request release. The request goes to the Procurement team, not to Finance.",
+      "suspect": false,
+      "qaApprovedByUserId": null,
+      "qaApprovedAt": null
     }
   },
   {
     "delayMs": 60,
     "event": "class",
     "data": {
-      "resolutionClass": "answered"
+      "resolutionClass": "answered",
+      "routed": false
     }
   },
   {

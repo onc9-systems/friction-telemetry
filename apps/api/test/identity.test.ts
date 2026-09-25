@@ -83,6 +83,6 @@ describe("leader gates", () => {
 
   it("given Romina, when she lists initiatives, then she is not gated, because employees need their initiatives for Ask", async () => {
     const res = await call("GET", "/v1/initiatives", "usr_romina");
-    expect(res.status).toBe(501);
+    expect(res.status).toBe(200);
   });
 });

@@ -52,3 +52,9 @@ Product context lives in the `osis/` directory. Consult these before making prod
 - `osis/v1/core/{iteration}/brief.md` (if present): current iteration bet
 
 Active version: `v1`. Say "osis" to consult the product expert.
+
+## Verification (apps/api)
+
+- `bun run check-types` and `bun run test` in `apps/api`. Route tests run against the SSE stub; database tests (`test/*.node.test.ts` that need Postgres) run only when `FT_DB_URL` is set to a Neon branch direct URL, never main.
+- End to end without a dev server: `FT_E2E_DATABASE_URL=<branch URL> bunx tsx scripts/e2e.ts` in `apps/api`. Run it with Node (`bunx tsx`), not `bun`: Bun's TLS breaks wrangler's remote binding proxy (`checkServerIdentity`).
+- Client contract for the answer pipeline and documents: `apps/api/docs/answer-pipeline.md`.

@@ -8,6 +8,8 @@ const PLACEHOLDER_DB = "postgres://test:test@127.0.0.1:5432/test";
 process.env.CLOUDFLARE_HYPERDRIVE_LOCAL_CONNECTION_STRING_HYPERDRIVE ??= PLACEHOLDER_DB;
 // Database-backed tests run only against a real connection string (the Neon dev branch).
 const FT_DB_TESTS = process.env.CLOUDFLARE_HYPERDRIVE_LOCAL_CONNECTION_STRING_HYPERDRIVE === PLACEHOLDER_DB ? "0" : "1";
+process.env.CLOUDFLARE_HYPERDRIVE_LOCAL_CONNECTION_STRING_HYPERDRIVE_NOCACHE ??=
+  process.env.CLOUDFLARE_HYPERDRIVE_LOCAL_CONNECTION_STRING_HYPERDRIVE;
 
 export default defineConfig({
   test: {
@@ -19,12 +21,15 @@ export default defineConfig({
             wrangler: { configPath: "./wrangler.jsonc" },
             // Workers AI has no local simulator and bills the real account. Tests never reach it.
             remoteBindings: false,
-            // The stub streams its script at once in tests.
-            miniflare: { bindings: { STUB_PACE: "0", FT_DB_TESTS } },
+            // The stub streams its script at once in tests. The live pipeline needs Postgres, Jev and AI Gateway,
+            // so route tests run against the stub; the pipeline's decisions and parsing have their own tests.
+            miniflare: { bindings: { STUB_PACE: "0", ENVIRONMENT: "development", ANSWER_PIPELINE: "stub", FT_DB_TESTS } },
           }),
         ],
         test: {
           name: "worker",
+          // The first request in each file boots workerd with the whole Worker (3 to 5 s since the answer pipeline).
+          testTimeout: 15_000,
           include: ["test/**/*.test.ts"],
           exclude: ["test/**/*.node.test.ts"],
           // pg is CommonJS and requires pg-protocol, whose `import` build is plain .js in a non-module package,

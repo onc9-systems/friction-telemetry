@@ -10,7 +10,12 @@ const OrgScoped = z.object({ organizationId: AuthId });
 
 export const EVENT_CATALOG = {
   "ft/system.ping": z.object({ sentAt: Instant }),
-  "ft/document.uploaded": OrgScoped.extend({ documentId: Id, documentVersionId: Id }),
+  "ft/document.uploaded": OrgScoped.extend({
+    documentId: Id,
+    documentVersionId: Id,
+    /** First upload, a replacement, or a retry of a failed version (a new version over the same file). */
+    kind: z.enum(["first", "replace", "retry"]),
+  }),
   "ft/document.replaced": OrgScoped.extend({ documentId: Id, documentVersionId: Id, previousVersionId: Id }),
   "ft/document.removed": OrgScoped.extend({ documentId: Id }),
   "ft/document.ready": OrgScoped.extend({ documentId: Id, documentVersionId: Id, passageCount: z.int().nonnegative() }),
@@ -20,8 +25,23 @@ export const EVENT_CATALOG = {
     initiativeId: Id,
     answerId: Id,
     resolutionClass: ResolutionClass,
+    citedPassageIds: z.array(Id),
+    citedQaEntryIds: z.array(Id),
+    othersCount: z.int().nonnegative().nullable(),
+    provisionalShown: z.boolean(),
+    /** Steps that failed and fell back (`jev_verify_failed`, `embed_failed`, `claude_failed`, ...). */
+    degraded: z.array(z.string()),
+    /** Follow-up turns carry the thread root, so analysis can read the thread as one conversation. */
+    threadRoot: z.object({ kind: z.enum(["flag", "question"]), id: Id }).nullable(),
   }),
-  "ft/event.still_stuck": OrgScoped.extend({ eventId: Id, kind: z.enum(["flag", "question"]), initiativeId: Id }),
+  "ft/event.still_stuck": OrgScoped.extend({
+    eventId: Id,
+    kind: z.enum(["flag", "question"]),
+    initiativeId: Id,
+    answerId: Id,
+    citedPassageIds: z.array(Id),
+    citedQaEntryIds: z.array(Id),
+  }),
   "ft/cluster.requested": OrgScoped.extend({ initiativeId: Id }),
   "ft/cluster.updated": OrgScoped.extend({ initiativeId: Id, clusterIds: z.array(Id) }),
   "ft/initiative.evidence_changed": OrgScoped.extend({ initiativeId: Id }),

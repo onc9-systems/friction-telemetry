@@ -2,5 +2,14 @@
 # INNGEST_DEV=1 points the Inngest SDK at the local dev server (default mode is cloud).
 INNGEST_DEV=1
 
+# Local development: unlocks the x-ft-stub-script header.
+ENVIRONMENT=development
+
+# Jev (TypeSafe) for the answer pipeline's judgments (~/.secrets/master.env). Production: a Worker secret.
+TYPESAFE_API_KEY=
+
+# Local development reaches Workers AI, Neon and Jev over the internet: stretch the answer pipeline's timeouts.
+PIPELINE_BUDGET_SCALE=3
+
 # Deepgram key for transcribing capture audio (shared onc9 key, ~/.secrets/master.env). Production: a Worker secret.
 DEEPGRAM_API_KEY=

@@ -56,6 +56,8 @@ The bet is right if feature sessions 02 to 08 merge without reworking shell file
 - Streaming: Server-Sent Events from `POST /v1/events` (flags and questions). Event types `meta`, `provisional`, `delta`, `citation`, `class`, `count`, `done`, `error`.
 - Judgment: Jev via `@typesafe-ai/sdk`, one request per event with packed per-passage Nouls. Pin the model version once thresholds are tuned.
 - Answer writing: Claude Haiku 4.5 through `@anthropic-ai/sdk` with `search_result` blocks and citations. The resolution class comes from Jev and code, never from Claude.
+- Answer writing, superseding the SDK and key above (2026-09-25, from 06): Claude Haiku 4.5 through Cloudflare AI Gateway (gateway `default`, Unified Billing, no Anthropic key), called with the AI binding's `gateway().run()` and the native Messages API. No `@anthropic-ai/sdk` dependency. Needs AI Gateway credits on the onc9 Cloudflare account.
+- Follow-ups (2026-09-25, from 06): any answer can be replied to. A reply is a Question with `inReplyTo`, in the same initiative, answered with its thread as context, and counted as its own signal.
 - Embeddings: Workers AI `@cf/qwen/qwen3-embedding-0.6b`, 1024 dimensions.
 - Contracts: Zod 4 schemas in `packages/contracts` are the single authority. Swift mirrors them as Codable types; both sides decode the same JSON fixtures in tests, so drift fails a test.
 - Names: Core Concept names from `product.md` everywhere (types, tables, routes, UI copy). Flow numbers from the Flow Catalogue in route comments, spec names, and Linear issues.
@@ -73,8 +75,8 @@ The bet is right if feature sessions 02 to 08 merge without reworking shell file
 | 02-auth-workspace | Sign-in, organizations, SSO, people directory (flows 1, 2 sign-in) | 01-shell | not started |
 | 03-permissions-onboarding | Permissions checklist, speech model download, buffer explanation (flow 2) | 01-shell | not started |
 | 04-capture | Capture key, on-device transcription, screenshot, rolling buffer, review and redaction, outbox (flows 6 client, 12) | 01-shell | not started |
-| 05-initiatives-documents | Create, edit, close initiatives; document upload and indexing (flows 3, 3a, 4, 5) | 01-shell, 02-auth-workspace | not started |
-| 06-answer-pipeline | Jev, retrieval, cited answers over SSE; chat; still stuck (flows 7, 8, 9) | 04-capture, 05-initiatives-documents | not started |
+| 05-initiatives-documents | Create, edit, close initiatives; document upload and indexing (flows 3, 3a, 4, 5) | 01-shell, 02-auth-workspace | service built on `iteration-1/06-answer-pipeline`; Mac screens not started |
+| 06-answer-pipeline | Jev, retrieval, cited answers over SSE; chat; follow-ups; still stuck (flows 7, 8, 9) | 04-capture, 05-initiatives-documents | service built on `iteration-1/06-answer-pipeline`; Mac client with the frontend engineer |
 | 07-record-qa | My record and Q&A browsing (flows 10, 11) | 06-answer-pipeline | not started |
 | 08-owner-loop | Owner answers and approves Q&A, corrects documents, records fixes, fix notices (flows 18 to 21) | 06-answer-pipeline | not started |
 | 09-analysis | Clustering, thesis scoring, insights, Q&A drafting, health, insight review (flows 13 to 17) | 06-answer-pipeline | not started |
@@ -95,4 +97,5 @@ Keys to have in `~/.secrets/master.env` before the phase that needs them: Innges
 ## Sessions
 
 - 2026-09-24: Initial brief: foundation-first bet, shared stack decisions, nine-phase DAG · `claude -r cf097e99-94f3-4cce-9596-642e0c0c18b8`
+- 2026-09-25: Claude through AI Gateway; threaded follow-ups; 05 and 06 service built (Devin session)
 - 2026-09-24: Capture key decided (hold the bottom-left key through Input Monitoring, fallback ⌃⇧Space); 01 gains the build reference `01-shell.docs.md` and Granola layout from `osis/references/granola/`

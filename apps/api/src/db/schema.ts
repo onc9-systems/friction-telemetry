@@ -8,6 +8,7 @@ import {
   bigint,
   boolean,
   check,
+  real,
   customType,
   date,
   index,
@@ -72,6 +73,16 @@ export const qaLinkSource = pgEnum("qa_link_source", QA_LINK_SOURCE);
 const tsvector = customType<{ data: string }>({ dataType: () => "tsvector" });
 const ts = (name: string) => timestamp(name, { withTimezone: true, mode: "date" });
 const organizationId = () => text("organization_id").notNull();
+
+/** Columns the answer pipeline writes on both flags and questions (flows 8, 9). */
+const eventPipelineColumns = () => ({
+  /** The embedded event text, for "N others" and later clustering. */
+  embedding: vector("embedding", { dimensions: 1024 }),
+  initiativeConfidence: real("initiative_confidence"),
+  routedAt: ts("routed_at"),
+  stillStuckAt: ts("still_stuck_at"),
+  stillStuckReason: text("still_stuck_reason"),
+});
 
 // ---------------------------------------------------------------------------------------------
 // Initiatives (flows 3, 4, 5)
@@ -143,6 +154,8 @@ export const document = pgTable(
     }),
     suspect: boolean().notNull().default(false),
     createdAt: ts("created_at").notNull().defaultNow(),
+    /** Removed documents leave search at once; answers keep their copied quotes. */
+    removedAt: ts("removed_at"),
   },
   (t) => [index("document_org_initiative_idx").on(t.organizationId, t.initiativeId)],
 );
@@ -162,6 +175,14 @@ export const documentVersion = pgTable(
     failureReason: text("failure_reason"),
     passageCount: integer("passage_count"),
     createdAt: ts("created_at").notNull().defaultNow(),
+    /** The uploaded file's name with its extension. */
+    fileName: text("file_name").notNull().default(""),
+    uploadedByUserId: text("uploaded_by_user_id").notNull().default(""),
+    /** `DocumentFailureCode` from the contracts; `failure_reason` is the UI copy. */
+    failureCode: text("failure_code"),
+    warning: text(),
+    /** When processing last changed state; drives "Taking longer than usual." */
+    statusChangedAt: ts("status_changed_at").notNull().defaultNow(),
   },
   (t) => [index("document_version_document_idx").on(t.documentId)],
 );
@@ -216,8 +237,10 @@ export const flag = pgTable(
     appNames: text("app_names").array().notNull().default(sql`'{}'::text[]`),
     resolutionClass: resolutionClass("resolution_class"),
     createdAt: ts("created_at").notNull().defaultNow(),
+    ...eventPipelineColumns(),
   },
   (t) => [
+    index("flag_embedding_hnsw").using("hnsw", t.embedding.op("vector_cosine_ops")),
     index("flag_org_initiative_idx").on(t.organizationId, t.initiativeId),
     index("flag_org_user_idx").on(t.organizationId, t.userId),
   ],
@@ -236,8 +259,20 @@ export const question = pgTable(
     text: text().notNull(),
     resolutionClass: resolutionClass("resolution_class"),
     createdAt: ts("created_at").notNull().defaultNow(),
+    ...eventPipelineColumns(),
+    /** A follow-up: the flag or question it replies to. */
+    inReplyToKind: eventKind("in_reply_to_kind"),
+    inReplyToId: uuid("in_reply_to_id"),
+    /** First turn of the thread; equals the parent's root. Null on a thread's first question. */
+    threadRootKind: eventKind("thread_root_kind"),
+    threadRootId: uuid("thread_root_id"),
+    /** The follow-up rewritten to stand on its own, used for retrieval, judgment and counting. */
+    standaloneText: text("standalone_text"),
   },
   (t) => [
+    index("question_embedding_hnsw").using("hnsw", t.embedding.op("vector_cosine_ops")),
+    index("question_thread_root_idx").on(t.threadRootId),
+    check("question_reply_pair", sql`num_nonnulls(${t.inReplyToKind}, ${t.inReplyToId}) in (0, 2)`),
     index("question_org_initiative_idx").on(t.organizationId, t.initiativeId),
     index("question_org_user_idx").on(t.organizationId, t.userId),
   ],
@@ -299,6 +334,12 @@ export const answer = pgTable(
     text: text().notNull(),
     provisionalShown: boolean("provisional_shown").notNull().default(false),
     createdAt: ts("created_at").notNull().defaultNow(),
+    /** Set when the employee switched initiative and a new answer replaced this one. */
+    supersededAt: ts("superseded_at"),
+    /** `answered`, `middle`, or `unanswerable`: how the verification judged the passages. */
+    band: text(),
+    othersCount: integer("others_count"),
+    initiativeId: uuid("initiative_id").references(() => initiative.id, { onDelete: "cascade" }),
   },
   (t) => [
     check("answer_exactly_one_target", sql`num_nonnulls(${t.flagId}, ${t.questionId}) = 1`),
@@ -328,10 +369,56 @@ export const citation = pgTable(
     documentTitle: text("document_title").notNull(),
     /** Human-readable place in the source, for example "Section 4.2 Approvals". */
     locator: text(),
+    charOffset: integer("char_offset").notNull().default(0),
+    sourceKind: text("source_kind").notNull().default("document"),
+    headingPath: text("heading_path"),
+    /** The whole passage or owner answer at answer time, so "Open at passage" survives a replacement. */
+    passageText: text("passage_text").notNull().default(""),
+    /** The document the passage came from; used to mark it suspect on Still stuck. */
+    documentId: uuid("document_id"),
+    qaApprovedByUserId: text("qa_approved_by_user_id"),
+    qaApprovedAt: ts("qa_approved_at"),
   },
   (t) => [
     check("citation_exactly_one_source", sql`num_nonnulls(${t.passageId}, ${t.qaEntryId}) = 1`),
     uniqueIndex("citation_answer_ordinal_idx").on(t.answerId, t.ordinal),
+  ],
+);
+
+/** Everything the pipeline decided for one answer: probabilities, ranks, timings. No document text. */
+export const pipelineTrace = pgTable(
+  "pipeline_trace",
+  {
+    id: uuid().primaryKey().defaultRandom(),
+    organizationId: organizationId(),
+    eventKind: eventKind("event_kind").notNull(),
+    eventId: uuid("event_id").notNull(),
+    answerId: uuid("answer_id").notNull(),
+    jevModel: text("jev_model"),
+    trace: jsonb().$type<Record<string, unknown>>().notNull(),
+    degraded: text().array().notNull().default(sql`'{}'::text[]`),
+    createdAt: ts("created_at").notNull().defaultNow(),
+  },
+  (t) => [uniqueIndex("pipeline_trace_answer_idx").on(t.answerId), index("pipeline_trace_event_idx").on(t.eventId)],
+);
+
+/** A Still stuck report against a cited source (flow 9). Phase 08 clears marks on a corrected version. */
+export const suspectMark = pgTable(
+  "suspect_mark",
+  {
+    id: uuid().primaryKey().defaultRandom(),
+    organizationId: organizationId(),
+    documentId: uuid("document_id"),
+    qaEntryId: uuid("qa_entry_id"),
+    passageId: uuid("passage_id"),
+    eventKind: eventKind("event_kind").notNull(),
+    eventId: uuid("event_id").notNull(),
+    createdAt: ts("created_at").notNull().defaultNow(),
+    clearedAt: ts("cleared_at"),
+  },
+  (t) => [
+    index("suspect_mark_document_idx").on(t.documentId),
+    index("suspect_mark_event_idx").on(t.eventId),
   ],
 );
 

@@ -50,6 +50,7 @@ describe("POST /v1/events: the answer stream stub", () => {
       headers: {},
       order: ["meta", "delta", "citation", "class", "count", "done"],
       resolutionClass: "answered",
+      routed: false,
     },
     {
       name: "a flag with x-ft-stub-script: answered",
@@ -57,6 +58,7 @@ describe("POST /v1/events: the answer stream stub", () => {
       headers: { "x-ft-stub-script": "answered" },
       order: ["meta", "delta", "citation", "class", "count", "done"],
       resolutionClass: "answered",
+      routed: false,
     },
     {
       name: "a question with x-ft-stub-script: provisional_routed",
@@ -64,6 +66,7 @@ describe("POST /v1/events: the answer stream stub", () => {
       headers: { "x-ft-stub-script": "provisional_routed" },
       order: ["meta", "provisional", "delta", "class", "count", "done"],
       resolutionClass: "unanswerable",
+      routed: true,
     },
   ] as const;
 
@@ -79,7 +82,7 @@ describe("POST /v1/events: the answer stream stub", () => {
 
       // meta carries the posted event's id, not the fixture placeholder.
       expect(frames[0]).toMatchObject({ event: "meta", data: { eventId: c.body.id } });
-      expect(frames.find((f) => f.event === "class")?.data).toStrictEqual({ resolutionClass: c.resolutionClass });
+      expect(frames.find((f) => f.event === "class")?.data).toStrictEqual({ resolutionClass: c.resolutionClass, routed: c.routed });
       expect(frames.filter((f) => f.event === "done")).toHaveLength(1);
     });
   }

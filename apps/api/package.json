@@ -15,7 +15,9 @@
   "dependencies": {
     "@friction-telemetry/contracts": "workspace:*",
     "@hono/zod-validator": "^0.9.1",
+    "@typesafe-ai/sdk": "0.6.0",
     "drizzle-orm": "0.45.3",
+    "fflate": "0.8.2",
     "hono": "^4.13.9",
     "inngest": "^4.21.0",
     "pg": "^8.23.0",

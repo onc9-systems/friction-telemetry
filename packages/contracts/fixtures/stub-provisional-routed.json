@@ -6,14 +6,18 @@
       "eventId": "00000000-0000-4000-8000-000000000000",
       "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
       "initiativeName": "Procurement rollout",
-      "initiativeConfidence": 0.88
+      "initiativeConfidence": 0.88,
+      "switchable": false,
+      "alternatives": [],
+      "switchedFrom": null,
+      "inReplyTo": null
     }
   },
   {
     "delayMs": 350,
     "event": "provisional",
     "data": {
-      "message": "Probably not covered in the docs. Sent to the owner. Still checking."
+      "message": "Probably not covered in the docs. Still checking."
     }
   },
   {
@@ -90,7 +94,8 @@
     "delayMs": 60,
     "event": "class",
     "data": {
-      "resolutionClass": "unanswerable"
+      "resolutionClass": "unanswerable",
+      "routed": true
     }
   },
   {
