@@ -1,0 +1,134 @@
+[
+  {
+    "delayMs": 50,
+    "event": "meta",
+    "data": {
+      "eventId": "00000000-0000-4000-8000-000000000000",
+      "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
+      "initiativeName": "Procurement rollout",
+      "initiativeConfidence": 0.92
+    }
+  },
+  {
+    "delayMs": 40,
+    "event": "delta",
+    "data": {
+      "text": "Approved POs release "
+    }
+  },
+  {
+    "delayMs": 40,
+    "event": "delta",
+    "data": {
+      "text": "to the supplier "
+    }
+  },
+  {
+    "delayMs": 40,
+    "event": "delta",
+    "data": {
+      "text": "automatically, so you "
+    }
+  },
+  {
+    "delayMs": 40,
+    "event": "delta",
+    "data": {
+      "text": "don't need to "
+    }
+  },
+  {
+    "delayMs": 40,
+    "event": "delta",
+    "data": {
+      "text": "call finance. If "
+    }
+  },
+  {
+    "delayMs": 40,
+    "event": "delta",
+    "data": {
+      "text": "a PO shows "
+    }
+  },
+  {
+    "delayMs": 40,
+    "event": "delta",
+    "data": {
+      "text": "Pending release for "
+    }
+  },
+  {
+    "delayMs": 40,
+    "event": "delta",
+    "data": {
+      "text": "more than a "
+    }
+  },
+  {
+    "delayMs": 40,
+    "event": "delta",
+    "data": {
+      "text": "day, open it "
+    }
+  },
+  {
+    "delayMs": 40,
+    "event": "delta",
+    "data": {
+      "text": "and choose Request "
+    }
+  },
+  {
+    "delayMs": 40,
+    "event": "delta",
+    "data": {
+      "text": "release."
+    }
+  },
+  {
+    "delayMs": 40,
+    "event": "citation",
+    "data": {
+      "index": 1,
+      "passageId": "366e0343-f84a-536f-b6e1-18a2b9f2b31a",
+      "qaEntryId": null,
+      "quote": "Once every approver has signed off in Ariba, the purchase order is released to the supplier automatically. Buyers do not need to contact Finance to release an approved PO.",
+      "documentTitle": "Procurement Policy v3",
+      "locator": "Section 4.2 Approvals"
+    }
+  },
+  {
+    "delayMs": 40,
+    "event": "citation",
+    "data": {
+      "index": 2,
+      "passageId": "b0e62546-637a-59ee-91a3-492a1b76715e",
+      "qaEntryId": null,
+      "quote": "If an approved PO shows Pending release for more than one working day, open it and choose Request release. The request goes to the Procurement team, not to Finance.",
+      "documentTitle": "Ariba Buyer Guide",
+      "locator": "Section 2.3 Tracking release"
+    }
+  },
+  {
+    "delayMs": 60,
+    "event": "class",
+    "data": {
+      "resolutionClass": "answered"
+    }
+  },
+  {
+    "delayMs": 40,
+    "event": "count",
+    "data": {
+      "othersCount": 23
+    }
+  },
+  {
+    "delayMs": 40,
+    "event": "done",
+    "data": {
+      "answerId": "2c23ccd8-6bd7-5607-8169-bf1a0cadb0b1"
+    }
+  }
+]

@@ -1,0 +1,147 @@
+[
+  {
+    "insightId": "98db0e21-bfb5-51cd-ab16-b36f0e0eb2ef",
+    "weeklyCounts": [
+      0,
+      2,
+      5,
+      9,
+      4,
+      3
+    ],
+    "excerpts": [
+      {
+        "text": "It was approved, but it still says I need to call finance to release it to the supplier.",
+        "day": "2026-09-23",
+        "appNames": [
+          "SAP Ariba",
+          "Outlook"
+        ],
+        "hasScreenshot": true
+      },
+      {
+        "text": "Third PO this week stuck on Pending release. Finance says it's not them.",
+        "day": "2026-09-22",
+        "appNames": [
+          "SAP Ariba"
+        ],
+        "hasScreenshot": true
+      },
+      {
+        "text": "The policy says it releases automatically but the screen tells me to phone finance.",
+        "day": "2026-09-18",
+        "appNames": [
+          "Chrome",
+          "SAP Ariba"
+        ],
+        "hasScreenshot": false
+      }
+    ],
+    "suspectDocumentIds": [
+      "eda5f4f0-fc9b-5b9d-830f-b462de6ecc84"
+    ]
+  },
+  {
+    "insightId": "cd5179a3-3f9c-5d56-9366-a48f13e2a8c6",
+    "weeklyCounts": [
+      0,
+      0,
+      1,
+      8,
+      9,
+      5
+    ],
+    "excerpts": [
+      {
+        "text": "It only shows the old codes, and DXB-07 gets rejected.",
+        "day": "2026-09-24",
+        "appNames": [
+          "SAP Ariba"
+        ],
+        "hasScreenshot": true
+      },
+      {
+        "text": "Which cost centre is the Jebel Ali yard now? The list has both.",
+        "day": "2026-09-17",
+        "appNames": [
+          "SAP Ariba"
+        ],
+        "hasScreenshot": true
+      }
+    ],
+    "suspectDocumentIds": []
+  },
+  {
+    "insightId": "254cad95-62a7-5428-977a-4eb630ae9b62",
+    "weeklyCounts": [
+      1,
+      1,
+      3,
+      4,
+      4,
+      3
+    ],
+    "excerpts": [
+      {
+        "text": "Do I still need a second approval for POs from a supplier we already use?",
+        "day": "2026-09-24",
+        "appNames": [],
+        "hasScreenshot": false
+      },
+      {
+        "text": "Ariba keeps asking for a contract number on one-off purchases that don't have a contract.",
+        "day": "2026-09-21",
+        "appNames": [
+          "SAP Ariba"
+        ],
+        "hasScreenshot": true
+      }
+    ],
+    "suspectDocumentIds": []
+  },
+  {
+    "insightId": "56bbf63f-7b92-5cfd-be5b-2f5c42c872ce",
+    "weeklyCounts": [
+      0,
+      0,
+      0,
+      1,
+      2,
+      2
+    ],
+    "excerpts": [
+      {
+        "text": "The kiosk logged me out halfway through clocking in, and now my shift shows as missing.",
+        "day": "2026-09-24",
+        "appNames": [
+          "Workday Kiosk"
+        ],
+        "hasScreenshot": true
+      },
+      {
+        "text": "Kiosk timed out while I was picking my shift.",
+        "day": "2026-09-19",
+        "appNames": [
+          "Workday Kiosk"
+        ],
+        "hasScreenshot": false
+      }
+    ],
+    "suspectDocumentIds": [
+      "a2988a2e-6f62-5c21-a53b-6b1819f7f09a"
+    ]
+  },
+  {
+    "insightId": "8aa97a33-ca59-5ef1-8e2a-5e8fd82dbce5",
+    "weeklyCounts": [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1
+    ],
+    "excerpts": [],
+    "suspectDocumentIds": []
+  }
+]

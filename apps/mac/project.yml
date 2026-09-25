@@ -1,0 +1,91 @@
+name: Friction
+options:
+  bundleIdPrefix: systems.onc9
+  createIntermediateGroups: true
+  deploymentTarget:
+    macOS: "26.0"
+
+settings:
+  base:
+    DEVELOPMENT_TEAM: P62A3QS593
+    CODE_SIGN_STYLE: Automatic
+    CODE_SIGN_IDENTITY: "Apple Development"
+    ENABLE_HARDENED_RUNTIME: YES
+    SWIFT_VERSION: "6.0"
+    SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
+    SWIFT_APPROACHABLE_CONCURRENCY: YES
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+  configs:
+    Debug:
+      API_BASE_URL: "http://localhost:8787"
+    Release:
+      API_BASE_URL: "https://friction-telemetry-api.andres-6fe.workers.dev"
+
+packages:
+  KeyboardShortcuts:
+    url: https://github.com/sindresorhus/KeyboardShortcuts
+    from: 3.1.0
+  EventSource:
+    url: https://github.com/mattt/EventSource
+    from: 1.5.1
+  Sparkle:
+    url: https://github.com/sparkle-project/Sparkle
+    from: 2.10.0
+
+targets:
+  Friction:
+    type: application
+    platform: macOS
+    sources:
+      - path: Friction
+        excludes:
+          - "Generated/**"
+      - path: ../../packages/contracts/fixtures
+        type: folder
+        buildPhase: resources
+    info:
+      path: Friction/Generated/Info.plist
+      properties:
+        LSUIElement: true
+        CFBundleDisplayName: Friction
+        NSMicrophoneUsageDescription: "Friction listens only while you hold the capture key."
+        NSSpeechRecognitionUsageDescription: "Friction turns what you say into text on this Mac so you can review it before anything is sent."
+        NSScreenCaptureUsageDescription: "Friction keeps the last few seconds of your screen on this Mac so a flag can include what you were looking at. Nothing leaves without your review."
+        APIBaseURL: $(API_BASE_URL)
+    entitlements:
+      path: Friction/Generated/Friction.entitlements
+      properties:
+        com.apple.security.device.audio-input: true
+    dependencies:
+      - package: KeyboardShortcuts
+      - package: EventSource
+      - package: Sparkle
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: systems.onc9.friction
+        PRODUCT_NAME: Friction
+      configs:
+        Debug:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: "DEBUG"
+        Release:
+          CODE_SIGN_STYLE: Manual
+          CODE_SIGN_IDENTITY: "Developer ID Application"
+          PROVISIONING_PROFILE_SPECIFIER: ""
+          CODE_SIGN_INJECT_BASE_ENTITLEMENTS: NO
+          OTHER_CODE_SIGN_FLAGS: "--timestamp"
+    scheme:
+      testTargets:
+        - FrictionTests
+
+  FrictionTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: FrictionTests
+    dependencies:
+      - target: Friction
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: systems.onc9.friction.tests
+        GENERATE_INFOPLIST_FILE: YES

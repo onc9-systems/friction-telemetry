@@ -1,0 +1,88 @@
+[
+  {
+    "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
+    "label": "breaking",
+    "changeSummary": "Breaking since Monday: a second thesis started breaking and Procurement Policy v3 was marked suspect.",
+    "computedAt": "2026-09-24T06:00:00.000Z",
+    "components": [
+      {
+        "key": "theses_holding",
+        "label": "Theses holding",
+        "value": "1 of 4",
+        "changeSinceLastWeek": "1 fewer than last week",
+        "direction": "down"
+      },
+      {
+        "key": "resolution_split",
+        "label": "Resolution split",
+        "value": "31 communication gap, 17 process gap, 21 documents wrong",
+        "changeSinceLastWeek": "6 more documents wrong",
+        "direction": "down"
+      },
+      {
+        "key": "insights_without_owner",
+        "label": "Insights without an owner",
+        "value": "1 of 3",
+        "changeSinceLastWeek": "No change",
+        "direction": "flat"
+      },
+      {
+        "key": "median_time_to_fix",
+        "label": "Median time to fix",
+        "value": "6 days",
+        "changeSinceLastWeek": "2 days faster",
+        "direction": "up"
+      },
+      {
+        "key": "documents_suspect",
+        "label": "Documents marked suspect",
+        "value": "1 of 3",
+        "changeSinceLastWeek": "1 more than last week",
+        "direction": "down"
+      }
+    ]
+  },
+  {
+    "initiativeId": "72c96695-7781-503c-ae49-cf27b5bacb2c",
+    "label": "at_risk",
+    "changeSummary": "At risk, unchanged since last week: night-shift clock-ins are still breaking.",
+    "computedAt": "2026-09-24T06:00:00.000Z",
+    "components": [
+      {
+        "key": "theses_holding",
+        "label": "Theses holding",
+        "value": "1 of 2",
+        "changeSinceLastWeek": "No change",
+        "direction": "flat"
+      },
+      {
+        "key": "resolution_split",
+        "label": "Resolution split",
+        "value": "14 communication gap, 3 process gap, 4 documents wrong",
+        "changeSinceLastWeek": "2 more communication gap",
+        "direction": "down"
+      },
+      {
+        "key": "insights_without_owner",
+        "label": "Insights without an owner",
+        "value": "1 of 2",
+        "changeSinceLastWeek": "1 more than last week",
+        "direction": "down"
+      },
+      {
+        "key": "median_time_to_fix",
+        "label": "Median time to fix",
+        "value": "No fixes yet",
+        "changeSinceLastWeek": "No change",
+        "direction": "flat"
+      },
+      {
+        "key": "documents_suspect",
+        "label": "Documents marked suspect",
+        "value": "1 of 2",
+        "changeSinceLastWeek": "No change",
+        "direction": "flat"
+      }
+    ]
+  }
+]

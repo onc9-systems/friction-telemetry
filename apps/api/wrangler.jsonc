@@ -1,0 +1,22 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "friction-telemetry-api",
+  // Andres@onc9.com's Account. Pinned so Wrangler never picks the other account on this machine (a client's).
+  "account_id": "6feca0ab5e0326426aeebd95259f7613",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-24",
+  // On by default from 2026-08-04; kept to document intent.
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true, "logs": { "head_sampling_rate": 1 } },
+  // Hyperdrive config friction-telemetry-prod, origin the Neon main branch (direct URL).
+  // Locally, set CLOUDFLARE_HYPERDRIVE_LOCAL_CONNECTION_STRING_HYPERDRIVE to the dev branch URL; never commit it.
+  "hyperdrive": [{ "binding": "HYPERDRIVE", "id": "8f08ea1a779445e486cece59c14a3178" }],
+  "r2_buckets": [{ "binding": "FILES", "bucket_name": "friction-telemetry-docs" }],
+  // Workers AI always runs against the real account, even in wrangler dev. Stubbed in tests.
+  "ai": { "binding": "AI" },
+  "vars": {
+    // Multiplier on the SSE stub's scripted delays. 1 is realistic pacing, 0 streams at once (tests).
+    "STUB_PACE": "1"
+  },
+  "dev": { "port": 8787 }
+}

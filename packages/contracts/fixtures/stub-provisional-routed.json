@@ -1,0 +1,110 @@
+[
+  {
+    "delayMs": 50,
+    "event": "meta",
+    "data": {
+      "eventId": "00000000-0000-4000-8000-000000000000",
+      "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
+      "initiativeName": "Procurement rollout",
+      "initiativeConfidence": 0.88
+    }
+  },
+  {
+    "delayMs": 350,
+    "event": "provisional",
+    "data": {
+      "message": "Probably not covered in the docs. Sent to the owner. Still checking."
+    }
+  },
+  {
+    "delayMs": 40,
+    "event": "delta",
+    "data": {
+      "text": "The Procurement rollout "
+    }
+  },
+  {
+    "delayMs": 40,
+    "event": "delta",
+    "data": {
+      "text": "docs don't say "
+    }
+  },
+  {
+    "delayMs": 40,
+    "event": "delta",
+    "data": {
+      "text": "whether existing suppliers "
+    }
+  },
+  {
+    "delayMs": 40,
+    "event": "delta",
+    "data": {
+      "text": "need a second "
+    }
+  },
+  {
+    "delayMs": 40,
+    "event": "delta",
+    "data": {
+      "text": "approval. I've sent "
+    }
+  },
+  {
+    "delayMs": 40,
+    "event": "delta",
+    "data": {
+      "text": "this to the "
+    }
+  },
+  {
+    "delayMs": 40,
+    "event": "delta",
+    "data": {
+      "text": "Procurement owner, and "
+    }
+  },
+  {
+    "delayMs": 40,
+    "event": "delta",
+    "data": {
+      "text": "their answer will "
+    }
+  },
+  {
+    "delayMs": 40,
+    "event": "delta",
+    "data": {
+      "text": "show up here "
+    }
+  },
+  {
+    "delayMs": 40,
+    "event": "delta",
+    "data": {
+      "text": "and in Q&A."
+    }
+  },
+  {
+    "delayMs": 60,
+    "event": "class",
+    "data": {
+      "resolutionClass": "unanswerable"
+    }
+  },
+  {
+    "delayMs": 40,
+    "event": "count",
+    "data": {
+      "othersCount": 7
+    }
+  },
+  {
+    "delayMs": 40,
+    "event": "done",
+    "data": {
+      "answerId": "fd731d8e-d728-5a18-95c7-82bc85fc4a9d"
+    }
+  }
+]

@@ -1,0 +1,66 @@
+[
+  {
+    "id": "a9e2e93a-5783-5f16-ab88-9187fd69991a",
+    "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
+    "transcript": "Ariba won't let me pick the Dubai warehouse cost centre. It only shows the old codes, and DXB-07 gets rejected.",
+    "screenshotKey": "flags/org_acme/a9e2e93a-5783-5f16-ab88-9187fd69991a/screenshot.png",
+    "clipKey": "flags/org_acme/a9e2e93a-5783-5f16-ab88-9187fd69991a/clip.mp4",
+    "appNames": [
+      "Chrome",
+      "SAP Ariba"
+    ],
+    "resolutionClass": "answered",
+    "createdAt": "2026-09-24T09:40:00.000Z"
+  },
+  {
+    "id": "17125885-cc96-5e9c-a521-b3aa5bb2b74a",
+    "initiativeId": "72c96695-7781-503c-ae49-cf27b5bacb2c",
+    "transcript": "The kiosk logged me out halfway through clocking in, and now my shift shows as missing.",
+    "screenshotKey": "flags/org_acme/17125885-cc96-5e9c-a521-b3aa5bb2b74a/screenshot.png",
+    "clipKey": "flags/org_acme/17125885-cc96-5e9c-a521-b3aa5bb2b74a/clip.mp4",
+    "appNames": [
+      "Workday Kiosk"
+    ],
+    "resolutionClass": "still_stuck",
+    "createdAt": "2026-09-24T14:02:00.000Z"
+  },
+  {
+    "id": "7d1f915d-ed3d-5913-8cb1-2fc4e31bbdcd",
+    "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
+    "transcript": "I raised the PO in Ariba and it was approved, but it still says I need to call finance to release it to the supplier.",
+    "screenshotKey": "flags/org_acme/7d1f915d-ed3d-5913-8cb1-2fc4e31bbdcd/screenshot.png",
+    "clipKey": "flags/org_acme/7d1f915d-ed3d-5913-8cb1-2fc4e31bbdcd/clip.mp4",
+    "appNames": [
+      "Chrome",
+      "SAP Ariba",
+      "Outlook"
+    ],
+    "resolutionClass": "still_stuck",
+    "createdAt": "2026-09-23T10:05:00.000Z"
+  },
+  {
+    "id": "3b1bc09a-e279-5ee9-a850-d39df5598d95",
+    "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
+    "transcript": "Ariba keeps asking for a contract number on one-off purchases that don't have a contract.",
+    "screenshotKey": "flags/org_acme/3b1bc09a-e279-5ee9-a850-d39df5598d95/screenshot.png",
+    "clipKey": "flags/org_acme/3b1bc09a-e279-5ee9-a850-d39df5598d95/clip.mp4",
+    "appNames": [
+      "Chrome",
+      "SAP Ariba"
+    ],
+    "resolutionClass": "unanswerable",
+    "createdAt": "2026-09-21T09:20:00.000Z"
+  },
+  {
+    "id": "4d448476-3375-5e12-a56c-57160acaaa02",
+    "initiativeId": "72c96695-7781-503c-ae49-cf27b5bacb2c",
+    "transcript": "The Workday app shows my night shift split across two days and counts my break twice.",
+    "screenshotKey": null,
+    "clipKey": null,
+    "appNames": [
+      "Workday"
+    ],
+    "resolutionClass": "unanswerable",
+    "createdAt": "2026-09-21T15:10:00.000Z"
+  }
+]

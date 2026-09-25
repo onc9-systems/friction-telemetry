@@ -1,0 +1,225 @@
+[
+  {
+    "kind": "flag",
+    "id": "a9e2e93a-5783-5f16-ab88-9187fd69991a",
+    "text": "Ariba won't let me pick the Dubai warehouse cost centre. It only shows the old codes, and DXB-07 gets rejected.",
+    "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
+    "initiativeName": "Procurement rollout",
+    "resolutionClass": "answered",
+    "othersCount": 23,
+    "outcome": "answered",
+    "routedTo": null,
+    "answerId": "7a6f5672-bbed-5fb5-ad31-a9a238fe37c6",
+    "createdAt": "2026-09-24T09:40:00.000Z",
+    "timeline": [
+      {
+        "step": "sent",
+        "at": "2026-09-24T09:40:00.000Z"
+      },
+      {
+        "step": "answered",
+        "at": "2026-09-24T09:40:00.000Z"
+      }
+    ]
+  },
+  {
+    "kind": "question",
+    "id": "6d8155f4-5a2b-5484-8b58-17c1ef368408",
+    "text": "Do I still need a second approval for POs from a supplier we already use?",
+    "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
+    "initiativeName": "Procurement rollout",
+    "resolutionClass": "unanswerable",
+    "othersCount": 7,
+    "outcome": "with_owner",
+    "routedTo": "Procurement owner",
+    "answerId": "5ef7ee09-00e0-579a-991b-7258f16effd3",
+    "createdAt": "2026-09-24T11:15:00.000Z",
+    "timeline": [
+      {
+        "step": "sent",
+        "at": "2026-09-24T11:15:00.000Z"
+      },
+      {
+        "step": "routed",
+        "at": "2026-09-24T11:15:00.000Z"
+      }
+    ]
+  },
+  {
+    "kind": "flag",
+    "id": "17125885-cc96-5e9c-a521-b3aa5bb2b74a",
+    "text": "The kiosk logged me out halfway through clocking in, and now my shift shows as missing.",
+    "initiativeId": "72c96695-7781-503c-ae49-cf27b5bacb2c",
+    "initiativeName": "New timesheets",
+    "resolutionClass": "still_stuck",
+    "othersCount": 4,
+    "outcome": "with_owner",
+    "routedTo": "Time tracking owner",
+    "answerId": "a6b2227e-a64a-5906-8e6e-2967cff14c4a",
+    "createdAt": "2026-09-24T14:02:00.000Z",
+    "timeline": [
+      {
+        "step": "sent",
+        "at": "2026-09-24T14:02:00.000Z"
+      },
+      {
+        "step": "answered",
+        "at": "2026-09-24T14:02:00.000Z"
+      },
+      {
+        "step": "routed",
+        "at": "2026-09-24T14:20:00.000Z"
+      }
+    ]
+  },
+  {
+    "kind": "flag",
+    "id": "7d1f915d-ed3d-5913-8cb1-2fc4e31bbdcd",
+    "text": "I raised the PO in Ariba and it was approved, but it still says I need to call finance to release it to the supplier.",
+    "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
+    "initiativeName": "Procurement rollout",
+    "resolutionClass": "still_stuck",
+    "othersCount": 23,
+    "outcome": "fixed",
+    "routedTo": "Procurement owner",
+    "answerId": "c6be55ec-db93-5828-9324-019603dd56d6",
+    "createdAt": "2026-09-23T10:05:00.000Z",
+    "timeline": [
+      {
+        "step": "sent",
+        "at": "2026-09-23T10:05:00.000Z"
+      },
+      {
+        "step": "answered",
+        "at": "2026-09-23T10:05:00.000Z"
+      },
+      {
+        "step": "routed",
+        "at": "2026-09-23T10:31:00.000Z"
+      },
+      {
+        "step": "fixed",
+        "at": "2026-09-24T08:30:00.000Z"
+      }
+    ]
+  },
+  {
+    "kind": "question",
+    "id": "1dca856c-a332-52b2-8ea5-d645d2ac82ff",
+    "text": "Where do I find the approval status of a PO I submitted?",
+    "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
+    "initiativeName": "Procurement rollout",
+    "resolutionClass": "answered",
+    "othersCount": 41,
+    "outcome": "answered",
+    "routedTo": null,
+    "answerId": "e6bfc361-41a7-5893-bf11-c83d0d9669a6",
+    "createdAt": "2026-09-23T13:30:00.000Z",
+    "timeline": [
+      {
+        "step": "sent",
+        "at": "2026-09-23T13:30:00.000Z"
+      },
+      {
+        "step": "answered",
+        "at": "2026-09-23T13:30:00.000Z"
+      }
+    ]
+  },
+  {
+    "kind": "question",
+    "id": "20d5b8f2-0606-5ca4-afff-dc3f5bf36215",
+    "text": "Can I fix last Friday's timesheet if I forgot to clock out?",
+    "initiativeId": "72c96695-7781-503c-ae49-cf27b5bacb2c",
+    "initiativeName": "New timesheets",
+    "resolutionClass": "answered",
+    "othersCount": 12,
+    "outcome": "answered",
+    "routedTo": null,
+    "answerId": "79ca78e6-da25-5308-8a10-dcd05c2667ee",
+    "createdAt": "2026-09-23T16:45:00.000Z",
+    "timeline": [
+      {
+        "step": "sent",
+        "at": "2026-09-23T16:45:00.000Z"
+      },
+      {
+        "step": "answered",
+        "at": "2026-09-23T16:45:00.000Z"
+      }
+    ]
+  },
+  {
+    "kind": "flag",
+    "id": "3b1bc09a-e279-5ee9-a850-d39df5598d95",
+    "text": "Ariba keeps asking for a contract number on one-off purchases that don't have a contract.",
+    "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
+    "initiativeName": "Procurement rollout",
+    "resolutionClass": "unanswerable",
+    "othersCount": 9,
+    "outcome": "with_owner",
+    "routedTo": "Procurement owner",
+    "answerId": "b6e52e7a-822a-54dd-8a88-d901160cb5b2",
+    "createdAt": "2026-09-21T09:20:00.000Z",
+    "timeline": [
+      {
+        "step": "sent",
+        "at": "2026-09-21T09:20:00.000Z"
+      },
+      {
+        "step": "routed",
+        "at": "2026-09-21T09:20:00.000Z"
+      },
+      {
+        "step": "qa_published",
+        "at": "2026-09-23T15:10:00.000Z"
+      }
+    ]
+  },
+  {
+    "kind": "flag",
+    "id": "4d448476-3375-5e12-a56c-57160acaaa02",
+    "text": "The Workday app shows my night shift split across two days and counts my break twice.",
+    "initiativeId": "72c96695-7781-503c-ae49-cf27b5bacb2c",
+    "initiativeName": "New timesheets",
+    "resolutionClass": "unanswerable",
+    "othersCount": 3,
+    "outcome": "with_owner",
+    "routedTo": "Time tracking owner",
+    "answerId": "e5683adb-eed2-5c7b-8aaa-bb935801d695",
+    "createdAt": "2026-09-21T15:10:00.000Z",
+    "timeline": [
+      {
+        "step": "sent",
+        "at": "2026-09-21T15:10:00.000Z"
+      },
+      {
+        "step": "routed",
+        "at": "2026-09-21T15:10:00.000Z"
+      }
+    ]
+  },
+  {
+    "kind": "question",
+    "id": "04d15a77-620e-59c6-a65b-2e312d30ff84",
+    "text": "Who approves POs over 5,000 dollars now?",
+    "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
+    "initiativeName": "Procurement rollout",
+    "resolutionClass": "answered",
+    "othersCount": 18,
+    "outcome": "answered",
+    "routedTo": null,
+    "answerId": "448cc95e-67d0-50d3-a47c-39e904fa073c",
+    "createdAt": "2026-09-21T11:00:00.000Z",
+    "timeline": [
+      {
+        "step": "sent",
+        "at": "2026-09-21T11:00:00.000Z"
+      },
+      {
+        "step": "answered",
+        "at": "2026-09-21T11:00:00.000Z"
+      }
+    ]
+  }
+]

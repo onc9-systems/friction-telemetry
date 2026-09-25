@@ -1,0 +1,87 @@
+[
+  {
+    "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
+    "userId": "usr_priya",
+    "role": "leader"
+  },
+  {
+    "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
+    "userId": "usr_daniel",
+    "role": "owner"
+  },
+  {
+    "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
+    "userId": "usr_omar",
+    "role": "owner"
+  },
+  {
+    "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
+    "userId": "usr_sam",
+    "role": "affected"
+  },
+  {
+    "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
+    "userId": "usr_ben",
+    "role": "affected"
+  },
+  {
+    "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
+    "userId": "usr_aisha",
+    "role": "affected"
+  },
+  {
+    "initiativeId": "72c96695-7781-503c-ae49-cf27b5bacb2c",
+    "userId": "usr_priya",
+    "role": "leader"
+  },
+  {
+    "initiativeId": "72c96695-7781-503c-ae49-cf27b5bacb2c",
+    "userId": "usr_laura",
+    "role": "owner"
+  },
+  {
+    "initiativeId": "72c96695-7781-503c-ae49-cf27b5bacb2c",
+    "userId": "usr_sam",
+    "role": "affected"
+  },
+  {
+    "initiativeId": "72c96695-7781-503c-ae49-cf27b5bacb2c",
+    "userId": "usr_aisha",
+    "role": "affected"
+  },
+  {
+    "initiativeId": "13feca90-71b9-5988-9a69-87ab46d64408",
+    "userId": "usr_priya",
+    "role": "leader"
+  },
+  {
+    "initiativeId": "13feca90-71b9-5988-9a69-87ab46d64408",
+    "userId": "usr_omar",
+    "role": "owner"
+  },
+  {
+    "initiativeId": "13feca90-71b9-5988-9a69-87ab46d64408",
+    "userId": "usr_sam",
+    "role": "affected"
+  },
+  {
+    "initiativeId": "13feca90-71b9-5988-9a69-87ab46d64408",
+    "userId": "usr_ben",
+    "role": "affected"
+  },
+  {
+    "initiativeId": "c9efc9a2-d110-5b71-8013-eb14a5615703",
+    "userId": "usr_priya",
+    "role": "leader"
+  },
+  {
+    "initiativeId": "c9efc9a2-d110-5b71-8013-eb14a5615703",
+    "userId": "usr_laura",
+    "role": "owner"
+  },
+  {
+    "initiativeId": "c9efc9a2-d110-5b71-8013-eb14a5615703",
+    "userId": "usr_sam",
+    "role": "affected"
+  }
+]

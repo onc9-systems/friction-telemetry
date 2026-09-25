@@ -1,0 +1,40 @@
+{
+  "protocolShape": "1.0",
+  "type": "product",
+  "product": "friction-telemetry",
+  "activeVersion": "v1",
+  "anonId": "faf357ba-fccd-4bf1-b925-284f7462ac64",
+  "createdAt": "2026-09-22T18:53:13Z",
+  "lastTwinUpdate": null,
+  "files": {
+    "twin": "osis/twin.md",
+    "sessions": "osis/sessions.md",
+    "inbox": [
+      "osis/inbox/2026-09-23--flows-research.md"
+    ],
+    "v1": {
+      "changelog": "osis/v1/changelog.md",
+      "systems": {
+        "core": {
+          "product": "osis/v1/core/product.md",
+          "iterations": {
+            "iteration-1--foundation": {
+              "brief": "osis/v1/core/iteration-1--foundation/brief.md",
+              "specs": {
+                "01-shell": "osis/v1/core/iteration-1--foundation/01-shell.impl.md",
+                "02-auth-workspace": "osis/v1/core/iteration-1--foundation/02-auth-workspace.impl.md",
+                "03-permissions-onboarding": "osis/v1/core/iteration-1--foundation/03-permissions-onboarding.impl.md",
+                "04-capture": "osis/v1/core/iteration-1--foundation/04-capture.impl.md",
+                "05-initiatives-documents": "osis/v1/core/iteration-1--foundation/05-initiatives-documents.impl.md",
+                "06-answer-pipeline": "osis/v1/core/iteration-1--foundation/06-answer-pipeline.impl.md",
+                "07-record-qa": "osis/v1/core/iteration-1--foundation/07-record-qa.impl.md",
+                "08-owner-loop": "osis/v1/core/iteration-1--foundation/08-owner-loop.impl.md"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "modules": {}
+}

@@ -1,0 +1,47 @@
+[
+  {
+    "id": "366e0343-f84a-536f-b6e1-18a2b9f2b31a",
+    "documentVersionId": "bb53e651-5a9b-5b4f-91d4-cb2f9de28b1f",
+    "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
+    "headingPath": "4 Purchase orders > 4.2 Approvals",
+    "locator": 9,
+    "text": "Once every approver has signed off in Ariba, the purchase order is released to the supplier automatically. Buyers do not need to contact Finance to release an approved PO.",
+    "position": 41
+  },
+  {
+    "id": "b0e62546-637a-59ee-91a3-492a1b76715e",
+    "documentVersionId": "c24501c6-cd5a-52ca-a780-7c8475ffa095",
+    "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
+    "headingPath": "2 Raising a PO > 2.3 Tracking release",
+    "locator": 14,
+    "text": "If an approved PO shows Pending release for more than one working day, open it and choose Request release. The request goes to the Procurement team, not to Finance.",
+    "position": 22
+  },
+  {
+    "id": "4b2b5ca3-ff53-5b36-bda5-ebf88f6d1e76",
+    "documentVersionId": "e90dc717-062d-5039-9c03-265885aed3a7",
+    "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
+    "headingPath": "Cost centres > Renamed codes",
+    "locator": null,
+    "text": "From 1 September the Dubai warehouse cost centre is DXB-WH-02. The old code DXB-07 no longer accepts new purchase orders.",
+    "position": 3
+  },
+  {
+    "id": "024b6e80-733d-584a-907f-7af2cc955c79",
+    "documentVersionId": "e90dc717-062d-5039-9c03-265885aed3a7",
+    "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
+    "headingPath": "Approval limits > Above 5,000 dollars",
+    "locator": null,
+    "text": "Purchase orders above 5,000 dollars need the cost centre manager's approval and then the Finance Controller's. Ariba routes both automatically.",
+    "position": 7
+  },
+  {
+    "id": "581bcc0e-2c34-5980-8943-8e5d8ee0cd84",
+    "documentVersionId": "4bc7d44f-f4b2-595f-abba-82697e8436e1",
+    "initiativeId": "72c96695-7781-503c-ae49-cf27b5bacb2c",
+    "headingPath": "3 Fixing your time > 3.1 Missed clock-outs",
+    "locator": 6,
+    "text": "If you forget to clock out, add the missing time under My Time before Sunday at midnight. Your supervisor sees the change when they approve your timesheet.",
+    "position": 18
+  }
+]

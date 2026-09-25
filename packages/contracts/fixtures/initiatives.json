@@ -1,0 +1,46 @@
+[
+  {
+    "id": "f5fcec07-d93a-5867-b2e3-39644999b66c",
+    "organizationId": "org_acme",
+    "name": "Procurement rollout",
+    "whatIsChanging": "Purchase orders move from email and spreadsheets to SAP Ariba. Buyers raise every PO in Ariba, and approvals route automatically by amount and cost centre.",
+    "why": "Finance spends two days a month chasing PO approvals by phone, and a third of POs reach the supplier after the goods arrive.",
+    "status": "live",
+    "targetDate": "2026-10-31",
+    "createdAt": "2026-08-18T09:00:00.000Z",
+    "closedAt": null
+  },
+  {
+    "id": "72c96695-7781-503c-ae49-cf27b5bacb2c",
+    "organizationId": "org_acme",
+    "name": "New timesheets",
+    "whatIsChanging": "Hourly staff log time in Workday instead of on paper, clocking in at the warehouse kiosk or in the Workday app.",
+    "why": "Payroll spends four days keying in paper timesheets, and one paycheck in twenty needs a correction.",
+    "status": "live",
+    "targetDate": "2026-11-15",
+    "createdAt": "2026-08-25T09:00:00.000Z",
+    "closedAt": null
+  },
+  {
+    "id": "13feca90-71b9-5988-9a69-87ab46d64408",
+    "organizationId": "org_acme",
+    "name": "Expense cards",
+    "whatIsChanging": "Corporate cards replace cash advances for travel and site visits.",
+    "why": "Cash advances take a week to approve and a month to reconcile.",
+    "status": "draft",
+    "targetDate": "2027-01-15",
+    "createdAt": "2026-09-20T10:00:00.000Z",
+    "closedAt": null
+  },
+  {
+    "id": "c9efc9a2-d110-5b71-8013-eb14a5615703",
+    "organizationId": "org_acme",
+    "name": "Travel booking tool",
+    "whatIsChanging": "All business travel is booked through Navan instead of the travel agency inbox.",
+    "why": "Agency bookings cost more and gave no view of who is travelling where.",
+    "status": "closed",
+    "targetDate": "2026-07-31",
+    "createdAt": "2026-05-04T09:00:00.000Z",
+    "closedAt": "2026-08-30T12:00:00.000Z"
+  }
+]

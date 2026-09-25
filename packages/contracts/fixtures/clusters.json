@@ -1,0 +1,38 @@
+[
+  {
+    "id": "d9a8fcae-215c-5dab-a788-22800bc6640a",
+    "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
+    "canonical": "Approved POs still ask buyers to call finance to release them",
+    "memberCount": 23
+  },
+  {
+    "id": "df1d5460-04fb-59f0-877f-4cb9d63f30af",
+    "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
+    "canonical": "Cost centre list shows codes retired on 1 September",
+    "memberCount": 23
+  },
+  {
+    "id": "3e9f5278-f7cd-5acd-8623-43b2ec1d2f17",
+    "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
+    "canonical": "Unclear whether existing suppliers need a second approval",
+    "memberCount": 7
+  },
+  {
+    "id": "35ea5e39-5755-504a-8c82-2b7b8fcb5e33",
+    "initiativeId": "f5fcec07-d93a-5867-b2e3-39644999b66c",
+    "canonical": "Contract number demanded for one-off purchases",
+    "memberCount": 9
+  },
+  {
+    "id": "a48c9d20-eb07-5726-ab6d-7cd8ba596dda",
+    "initiativeId": "72c96695-7781-503c-ae49-cf27b5bacb2c",
+    "canonical": "Kiosk logs staff out before a clock-in is saved",
+    "memberCount": 4
+  },
+  {
+    "id": "dce95522-8aa7-5264-9f5a-7588cb4aae44",
+    "initiativeId": "72c96695-7781-503c-ae49-cf27b5bacb2c",
+    "canonical": "Night shifts split across two days in the Workday app",
+    "memberCount": 3
+  }
+]

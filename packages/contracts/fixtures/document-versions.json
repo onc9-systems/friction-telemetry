@@ -1,0 +1,79 @@
+[
+  {
+    "id": "bb53e651-5a9b-5b4f-91d4-cb2f9de28b1f",
+    "documentId": "eda5f4f0-fc9b-5b9d-830f-b462de6ecc84",
+    "r2Key": "docs/org_acme/eda5f4f0-fc9b-5b9d-830f-b462de6ecc84/bb53e651-5a9b-5b4f-91d4-cb2f9de28b1f.pdf",
+    "mimeType": "application/pdf",
+    "byteSize": 1843221,
+    "status": "ready",
+    "failureReason": null,
+    "passageCount": 212,
+    "createdAt": "2026-08-20T10:00:00.000Z"
+  },
+  {
+    "id": "c24501c6-cd5a-52ca-a780-7c8475ffa095",
+    "documentId": "73bd5f93-ac0f-5cb6-ba12-c4e032313cac",
+    "r2Key": "docs/org_acme/73bd5f93-ac0f-5cb6-ba12-c4e032313cac/c24501c6-cd5a-52ca-a780-7c8475ffa095.pdf",
+    "mimeType": "application/pdf",
+    "byteSize": 4120334,
+    "status": "ready",
+    "failureReason": null,
+    "passageCount": 148,
+    "createdAt": "2026-08-20T10:00:00.000Z"
+  },
+  {
+    "id": "e90dc717-062d-5039-9c03-265885aed3a7",
+    "documentId": "7193e0d4-4c64-5804-8620-5496429167d0",
+    "r2Key": "docs/org_acme/7193e0d4-4c64-5804-8620-5496429167d0/e90dc717-062d-5039-9c03-265885aed3a7.xlsx",
+    "mimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    "byteSize": 88210,
+    "status": "ready",
+    "failureReason": null,
+    "passageCount": 36,
+    "createdAt": "2026-08-20T10:00:00.000Z"
+  },
+  {
+    "id": "4bc7d44f-f4b2-595f-abba-82697e8436e1",
+    "documentId": "2b02ba02-dc9e-55c1-9d53-28a94c8de300",
+    "r2Key": "docs/org_acme/2b02ba02-dc9e-55c1-9d53-28a94c8de300/4bc7d44f-f4b2-595f-abba-82697e8436e1.pdf",
+    "mimeType": "application/pdf",
+    "byteSize": 2210981,
+    "status": "ready",
+    "failureReason": null,
+    "passageCount": 97,
+    "createdAt": "2026-08-26T10:00:00.000Z"
+  },
+  {
+    "id": "4e52fe55-6707-5552-af6f-d3edef32d9e9",
+    "documentId": "a2988a2e-6f62-5c21-a53b-6b1819f7f09a",
+    "r2Key": "docs/org_acme/a2988a2e-6f62-5c21-a53b-6b1819f7f09a/4e52fe55-6707-5552-af6f-d3edef32d9e9.pdf",
+    "mimeType": "application/pdf",
+    "byteSize": 301442,
+    "status": "ready",
+    "failureReason": null,
+    "passageCount": 12,
+    "createdAt": "2026-08-26T10:00:00.000Z"
+  },
+  {
+    "id": "31b6b272-bb8d-523e-9f18-9ccda78c9a8c",
+    "documentId": "b6a0379f-30b0-54a3-b640-202c88c982c1",
+    "r2Key": "docs/org_acme/b6a0379f-30b0-54a3-b640-202c88c982c1/31b6b272-bb8d-523e-9f18-9ccda78c9a8c.pptx",
+    "mimeType": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+    "byteSize": 5120993,
+    "status": "failed",
+    "failureReason": "Couldn't read this PPTX",
+    "passageCount": null,
+    "createdAt": "2026-09-20T10:05:00.000Z"
+  },
+  {
+    "id": "9d9958ae-39bf-56d6-ba29-7598445fa24f",
+    "documentId": "f010cf88-0ff3-5d9e-a7cb-76d39bb13362",
+    "r2Key": "docs/org_acme/f010cf88-0ff3-5d9e-a7cb-76d39bb13362/9d9958ae-39bf-56d6-ba29-7598445fa24f.pdf",
+    "mimeType": "application/pdf",
+    "byteSize": 990112,
+    "status": "ready",
+    "failureReason": null,
+    "passageCount": 54,
+    "createdAt": "2026-05-04T09:30:00.000Z"
+  }
+]

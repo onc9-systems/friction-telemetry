@@ -1,0 +1,58 @@
+{
+  "organization": {
+    "id": "org_acme",
+    "name": "Acme Logistics"
+  },
+  "people": [
+    {
+      "id": "usr_priya",
+      "name": "Priya Raman",
+      "email": "priya.raman@acmelogistics.com",
+      "title": "Head of Operations",
+      "leader": true
+    },
+    {
+      "id": "usr_sam",
+      "name": "Sam Okafor",
+      "email": "sam.okafor@acmelogistics.com",
+      "title": "Buyer",
+      "leader": false
+    },
+    {
+      "id": "usr_daniel",
+      "name": "Daniel Mensah",
+      "email": "daniel.mensah@acmelogistics.com",
+      "title": "Procurement Lead",
+      "leader": false
+    },
+    {
+      "id": "usr_omar",
+      "name": "Omar Haddad",
+      "email": "omar.haddad@acmelogistics.com",
+      "title": "Finance Controller",
+      "leader": false
+    },
+    {
+      "id": "usr_laura",
+      "name": "Laura Chen",
+      "email": "laura.chen@acmelogistics.com",
+      "title": "HR Systems Manager",
+      "leader": true
+    },
+    {
+      "id": "usr_aisha",
+      "name": "Aisha Al Mansoori",
+      "email": "aisha.almansoori@acmelogistics.com",
+      "title": "Warehouse Supervisor",
+      "leader": false
+    },
+    {
+      "id": "usr_ben",
+      "name": "Ben Carter",
+      "email": "ben.carter@acmelogistics.com",
+      "title": "Buyer",
+      "leader": false
+    }
+  ],
+  "signedInUserId": "usr_sam"
+}
