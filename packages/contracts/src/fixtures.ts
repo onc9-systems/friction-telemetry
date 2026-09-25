@@ -4,6 +4,7 @@ import { Initiative, InitiativeMember } from "./concepts/initiative";
 import { Thesis } from "./concepts/thesis";
 import { Document, DocumentVersion, Passage } from "./concepts/document";
 import { Flag } from "./concepts/flag";
+import { FlagCaptureDetail, FlagCaptureManifest } from "./concepts/flag-capture";
 import { Question } from "./concepts/question";
 import { Answer } from "./concepts/answer";
 import { QAEntry } from "./concepts/qa-entry";
@@ -28,6 +29,8 @@ export const FIXTURES = {
   "document-versions.json": z.array(DocumentVersion),
   "passages.json": z.array(Passage),
   "flags.json": z.array(Flag),
+  "flag-capture-manifest.json": FlagCaptureManifest,
+  "flag-capture-detail.json": FlagCaptureDetail,
   "questions.json": z.array(Question),
   "answers.json": z.array(Answer),
   "my-record.json": z.array(MyRecordItem),

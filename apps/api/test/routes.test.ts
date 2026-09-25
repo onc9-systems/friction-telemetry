@@ -44,10 +44,10 @@ describe("routes", () => {
     expect(await res.json()).toStrictEqual({ ok: true, version: "0.1.0" });
   });
 
-  it("given GET /api/inngest, then the Inngest serve handler answers with the one shell function", async () => {
+  it("given GET /api/inngest, then the Inngest serve handler answers with system-ping, transcribe-capture and its failure handler", async () => {
     const res = await call("GET", "/api/inngest");
     expect(res.status).toBe(200);
-    expect(await res.json()).toMatchObject({ function_count: 1 });
+    expect(await res.json()).toMatchObject({ function_count: 3 });
   });
 
   it("given an unknown path, then 404 with a JSON error", async () => {

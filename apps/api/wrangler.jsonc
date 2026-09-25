@@ -11,7 +11,9 @@
   // Hyperdrive config friction-telemetry-prod, origin the Neon main branch (direct URL).
   // Locally, set CLOUDFLARE_HYPERDRIVE_LOCAL_CONNECTION_STRING_HYPERDRIVE to the dev branch URL; never commit it.
   "hyperdrive": [{ "binding": "HYPERDRIVE", "id": "8f08ea1a779445e486cece59c14a3178" }],
-  "r2_buckets": [{ "binding": "FILES", "bucket_name": "friction-telemetry-docs" }],
+  // remote: `wrangler dev` writes to the real bucket, so a capture sent from the Mac lands in the cloud even
+  // before the Worker is deployed. Tests keep a local simulator (remoteBindings: false in vitest.config.ts).
+  "r2_buckets": [{ "binding": "FILES", "bucket_name": "friction-telemetry-docs", "remote": true }],
   // Workers AI always runs against the real account, even in wrangler dev. Stubbed in tests.
   "ai": { "binding": "AI" },
   "vars": {

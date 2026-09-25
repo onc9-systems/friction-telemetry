@@ -20,7 +20,6 @@ final class PillController {
         hosting.rootView = AnyView(PillView(model: model, onFinish: { [weak self] in self?.onFinishRecording() }))
         hosting.sizingOptions = [.intrinsicContentSize]
         panel.contentView = hosting
-        hosting.onHoverChange = { [weak self] inside in self?.model.hovered = inside }
         hosting.onClick = { [weak self] in self?.onClick() }
         hosting.onDragEnded = { [weak self] in self?.saveAnchor() }
         hosting.acceptsSwiftUIClicks = { [weak self] in self?.model.state == .recording }
@@ -57,34 +56,15 @@ final class PillController {
     }
 }
 
-/// Hosting view for the pill: hover through a tracking area that works while the app is inactive,
-/// drag to move (more than 3 pt), click to open Home. In Recording, clicks go to the SwiftUI buttons.
+/// Hosting view for the pill: drag to move (more than 3 pt), click to flag. No hover state.
+/// In Recording, clicks go to the SwiftUI buttons.
 final class PillHostingView: FirstMouseHostingView<AnyView> {
-    var onHoverChange: (Bool) -> Void = { _ in }
     var onClick: () -> Void = {}
     var onDragEnded: () -> Void = {}
     var acceptsSwiftUIClicks: () -> Bool = { false }
     private(set) var isDragging = false
     private var downPoint: NSPoint?
     private var downOrigin: NSPoint?
-    private var tracking: NSTrackingArea?
-
-    override func updateTrackingAreas() {
-        super.updateTrackingAreas()
-        if let tracking { removeTrackingArea(tracking) }
-        let area = NSTrackingArea(rect: .zero, options: [.mouseEnteredAndExited, .activeAlways, .inVisibleRect], owner: self)
-        addTrackingArea(area)
-        tracking = area
-        // A tracking area installed under a pointer that is already inside never sends mouseEntered.
-        DispatchQueue.main.async { [weak self] in
-            guard let self, let window = self.window else { return }
-            let p = self.convert(window.mouseLocationOutsideOfEventStream, from: nil)
-            self.onHoverChange(self.bounds.contains(p))
-        }
-    }
-
-    override func mouseEntered(with event: NSEvent) { pillLog.info("hover entered"); onHoverChange(true) }
-    override func mouseExited(with event: NSEvent) { if !isDragging { onHoverChange(false) } }
 
     override func mouseDown(with event: NSEvent) {
         pillLog.info("mouse down")

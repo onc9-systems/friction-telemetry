@@ -101,4 +101,10 @@ enum Format {
     }
 
     static func people(_ count: Int) -> String { count == 1 ? "1 person" : "\(count) people" }
+
+    /// "3:18" for a span of 198 seconds.
+    static func duration(_ seconds: TimeInterval) -> String {
+        let s = max(0, Int(seconds.rounded()))
+        return String(format: "%d:%02d", s / 60, s % 60)
+    }
 }

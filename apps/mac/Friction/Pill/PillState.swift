@@ -5,6 +5,9 @@ import Observation
 /// in the shell, the Debug menu stands in for that action.
 enum PillState: String, CaseIterable, Equatable {
     case idle, listening, recording, processing, paused, discarded
+    /// Click-to-flag: the hand became a send icon and the voice note is recording.
+    case capturing
+    case sending, sent, notice
 
     var debugTitle: String {
         switch self {
@@ -14,21 +17,25 @@ enum PillState: String, CaseIterable, Equatable {
         case .processing: "Processing"
         case .paused: "Screen context paused"
         case .discarded: "Discarded"
+        case .capturing: "Capturing (send icon)"
+        case .sending: "Sending"
+        case .sent: "Sent"
+        case .notice: "Notice"
         }
     }
 
     /// States that show words grow leftward from the screen edge into a card.
-    var isExpanded: Bool { self != .idle && self != .paused }
+    var isExpanded: Bool { self != .idle && self != .paused && self != .capturing }
 }
 
 @Observable
 final class PillModel {
     var state: PillState = .idle { didSet { if state != oldValue { onChange?() } } }
-    var hovered = false { didSet { if hovered != oldValue { onChange?() } } }
     var elapsed = 0
     var levels: [Double] = Array(repeating: 0.2, count: 12)
     var transcriptLine = "It says approved but I still have to call finance to release the PO to the supplier"
     var microphoneName = "MacBook Pro Microphone"
+    var noticeText = ""
 
     @ObservationIgnored var onChange: (() -> Void)?
     @ObservationIgnored private var ticker: Task<Void, Never>?
@@ -52,9 +59,10 @@ final class PillModel {
                 }
             }
         }
-        if new == .discarded {
+        if new == .discarded || new == .sent || new == .notice {
+            let seconds = new == .notice ? 6 : 2
             discardTimer = Task { [weak self] in
-                try? await Task.sleep(for: .seconds(2))
+                try? await Task.sleep(for: .seconds(seconds))
                 guard !Task.isCancelled else { return }
                 self?.show(.idle)
             }
@@ -63,6 +71,12 @@ final class PillModel {
 
     /// Discard from Recording: "Discarded. Nothing sent." for 2 seconds, then Idle.
     func discard() { show(.discarded) }
+
+    /// A short message in the card (a permission missing, a capture that failed), then Idle.
+    func notice(_ text: String) {
+        noticeText = text
+        show(.notice)
+    }
 
     var timerText: String { String(format: "%d:%02d", elapsed / 60, elapsed % 60) }
 }

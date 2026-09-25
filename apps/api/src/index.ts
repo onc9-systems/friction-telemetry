@@ -5,6 +5,7 @@ import type { ApiError } from "@friction-telemetry/contracts";
 import { inngest } from "./inngest/client";
 import { functions } from "./inngest/functions";
 import auth from "./routes/auth";
+import captures from "./routes/captures";
 import documents from "./routes/documents";
 import events from "./routes/events";
 import health from "./routes/health";
@@ -19,6 +20,7 @@ const app = new Hono<{ Bindings: Env }>();
 // Every surface file owns full paths under /v1, so feature phases add handlers inside their file, never here.
 app.route("/v1", system);
 app.route("/v1", events);
+app.route("/v1", captures);
 app.route("/v1", me);
 app.route("/v1", initiatives);
 app.route("/v1", documents);

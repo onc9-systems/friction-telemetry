@@ -6,6 +6,7 @@ export * from "./concepts/thesis";
 export * from "./concepts/document";
 export * from "./concepts/resolution-class";
 export * from "./concepts/flag";
+export * from "./concepts/flag-capture";
 export * from "./concepts/question";
 export * from "./concepts/answer";
 export * from "./concepts/qa-entry";

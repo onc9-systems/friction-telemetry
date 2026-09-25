@@ -2,10 +2,11 @@ import Foundation
 import Observation
 
 enum Surface: String, Hashable, CaseIterable {
-    case home, ask, qa, initiatives, insights, health, settings
+    case home, ask, qa, initiatives, insights, health, settings, intake
 
     var title: String {
         switch self {
+        case .intake: "Intake"
         case .home: "Home"
         case .ask: "Ask"
         case .qa: "Q&A"
@@ -25,11 +26,14 @@ enum Surface: String, Hashable, CaseIterable {
         case .insights: "lightbulb"
         case .health: "waveform.path.ecg"
         case .settings: "gearshape"
+        case .intake: "tray.and.arrow.up"
         }
     }
 
     static let worker: [Surface] = [.home, .ask, .qa]
     static let initiative: [Surface] = [.initiatives, .insights, .health]
+    /// Internal: proves captures reach the cloud. Not a product surface.
+    static let pipeline: [Surface] = [.intake]
 }
 
 /// One question and its answer in Ask.

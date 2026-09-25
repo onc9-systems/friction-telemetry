@@ -13,3 +13,7 @@ export const THESIS_RELATION = ["supports", "breaks"] as const;
 export const RECORD_KIND = ["flag", "question"] as const;
 export const RECORD_OUTCOME = ["answered", "with_owner", "fixed"] as const;
 export const TIMELINE_STEP = ["sent", "answered", "routed", "qa_published", "fixed"] as const;
+export const CAPTURE_PART_KIND = ["video", "audio"] as const;
+export const CAPTURE_PART_STATUS = ["uploading", "received"] as const;
+export const TRANSCRIPT_STATUS = ["waiting", "transcribing", "done", "failed"] as const;
+export const WINDOW_EVENT_REASON = ["activated", "title_changed"] as const;

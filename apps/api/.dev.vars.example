@@ -1,3 +1,6 @@
 # Copy to .dev.vars for local development. Types are generated from this file, so they do not depend on anyone's local secrets.
 # INNGEST_DEV=1 points the Inngest SDK at the local dev server (default mode is cloud).
 INNGEST_DEV=1
+
+# Deepgram key for transcribing capture audio (shared onc9 key, ~/.secrets/master.env). Production: a Worker secret.
+DEEPGRAM_API_KEY=

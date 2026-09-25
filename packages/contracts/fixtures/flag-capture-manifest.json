@@ -1,0 +1,45 @@
+{
+  "flagId": "0b6d8f7e-3c2a-4e19-9a51-6f2d4c8b1e07",
+  "clickedAt": "2026-09-25T10:42:30.120Z",
+  "sentAt": "2026-09-25T10:42:48.905Z",
+  "parts": [
+    {
+      "kind": "video",
+      "contentType": "video/mp4",
+      "byteSize": 14680064,
+      "startedAt": "2026-09-25T10:39:30.000Z",
+      "endedAt": "2026-09-25T10:42:49.000Z"
+    },
+    {
+      "kind": "audio",
+      "contentType": "audio/mp4",
+      "byteSize": 301234,
+      "startedAt": "2026-09-25T10:42:30.214Z",
+      "endedAt": "2026-09-25T10:42:48.850Z"
+    }
+  ],
+  "screen": { "width": 1280, "height": 800, "framesPerSecond": 5 },
+  "windows": [
+    {
+      "at": "2026-09-25T10:37:02.511Z",
+      "reason": "activated",
+      "appName": "SAP GUI",
+      "bundleId": "com.sap.SAPGUI",
+      "windowTitle": "Create Purchase Order ME21N"
+    },
+    {
+      "at": "2026-09-25T10:41:15.004Z",
+      "reason": "activated",
+      "appName": "Google Chrome",
+      "bundleId": "com.google.Chrome",
+      "windowTitle": "Procurement Policy v3 - Approvals"
+    },
+    {
+      "at": "2026-09-25T10:41:58.730Z",
+      "reason": "title_changed",
+      "appName": "Google Chrome",
+      "bundleId": "com.google.Chrome",
+      "windowTitle": "Inbox (3) - sam.okafor@acmelogistics.com"
+    }
+  ]
+}

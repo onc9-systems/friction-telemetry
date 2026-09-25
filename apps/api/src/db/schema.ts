@@ -23,6 +23,8 @@ import {
   vector,
 } from "drizzle-orm/pg-core";
 import {
+  CAPTURE_PART_KIND,
+  CAPTURE_PART_STATUS,
   DOCUMENT_VERSION_STATUS,
   HEALTH_LABEL,
   INITIATIVE_STATUS,
@@ -33,7 +35,11 @@ import {
   RESOLUTION_CLASS,
   THESIS_RELATION,
   THESIS_VERDICT,
+  TRANSCRIPT_STATUS,
   type HealthComponent,
+  type ScreenSettings,
+  type TranscriptWord,
+  type WindowEvent,
 } from "@friction-telemetry/contracts";
 
 // ---------------------------------------------------------------------------------------------
@@ -51,6 +57,9 @@ export const healthLabel = pgEnum("health_label", HEALTH_LABEL);
 export const thesisRelation = pgEnum("thesis_relation", THESIS_RELATION);
 /** A flag or a question: the two kinds of event an employee sends. */
 export const eventKind = pgEnum("event_kind", RECORD_KIND);
+export const capturePartKind = pgEnum("capture_part_kind", CAPTURE_PART_KIND);
+export const capturePartStatus = pgEnum("capture_part_status", CAPTURE_PART_STATUS);
+export const transcriptStatus = pgEnum("transcript_status", TRANSCRIPT_STATUS);
 
 /** How a flag or question came to be linked to a Q&A entry. Service-only, so it is not in the contracts. */
 export const QA_LINK_SOURCE = ["cited", "owner_answer", "cluster"] as const;
@@ -232,6 +241,51 @@ export const question = pgTable(
     index("question_org_initiative_idx").on(t.organizationId, t.initiativeId),
     index("question_org_user_idx").on(t.organizationId, t.userId),
   ],
+);
+
+/**
+ * What the Mac captured for a flag: screen video from the rolling buffer, the voice note, the window
+ * timeline. Keyed by the flag's client-generated id, so a retried registration finds the same row. No
+ * foreign key to `flag`: the capture lands before the answer pipeline creates the flag row.
+ */
+export const flagCapture = pgTable(
+  "flag_capture",
+  {
+    flagId: uuid("flag_id").primaryKey(),
+    organizationId: organizationId(),
+    userId: text("user_id").notNull(),
+    clickedAt: ts("clicked_at").notNull(),
+    sentAt: ts("sent_at").notNull(),
+    screen: jsonb().$type<ScreenSettings>(),
+    windows: jsonb().$type<WindowEvent[]>().notNull(),
+    transcriptStatus: transcriptStatus("transcript_status").notNull().default("waiting"),
+    transcript: text(),
+    transcriptWords: jsonb("transcript_words").$type<TranscriptWord[]>(),
+    transcriptError: text("transcript_error"),
+    registeredAt: ts("registered_at").notNull().defaultNow(),
+  },
+  (t) => [index("flag_capture_org_registered_idx").on(t.organizationId, t.registeredAt)],
+);
+
+/** One uploaded file of a capture, stored in R2 through a multipart upload. */
+export const flagCapturePart = pgTable(
+  "flag_capture_part",
+  {
+    flagId: uuid("flag_id")
+      .notNull()
+      .references(() => flagCapture.flagId, { onDelete: "cascade" }),
+    kind: capturePartKind().notNull(),
+    organizationId: organizationId(),
+    r2Key: text("r2_key").notNull(),
+    contentType: text("content_type").notNull(),
+    byteSize: bigint("byte_size", { mode: "number" }).notNull(),
+    startedAt: ts("started_at").notNull(),
+    endedAt: ts("ended_at").notNull(),
+    uploadId: text("upload_id").notNull(),
+    status: capturePartStatus().notNull().default("uploading"),
+    receivedAt: ts("received_at"),
+  },
+  (t) => [primaryKey({ columns: [t.flagId, t.kind] })],
 );
 
 /** An answer replies to exactly one flag or one question. */

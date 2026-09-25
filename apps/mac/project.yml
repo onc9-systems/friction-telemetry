@@ -49,15 +49,16 @@ targets:
       properties:
         LSUIElement: true
         CFBundleDisplayName: Friction
-        NSMicrophoneUsageDescription: "Friction listens only while you hold the capture key."
+        NSMicrophoneUsageDescription: "Friction listens only while you are flagging something."
         NSSpeechRecognitionUsageDescription: "Friction turns what you say into text on this Mac so you can review it before anything is sent."
-        NSScreenCaptureUsageDescription: "Friction keeps the last few seconds of your screen on this Mac so a flag can include what you were looking at. Nothing leaves without your review."
+        NSScreenCaptureUsageDescription: "Friction keeps the last few moments of your screen on this Mac so a flag can include what you were looking at. It leaves the Mac only inside a flag you send."
         APIBaseURL: $(API_BASE_URL)
     entitlements:
       path: Friction/Generated/Friction.entitlements
       properties:
         com.apple.security.device.audio-input: true
     dependencies:
+      - sdk: AVKit.framework
       - package: KeyboardShortcuts
       - package: EventSource
       - package: Sparkle

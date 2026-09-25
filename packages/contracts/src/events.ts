@@ -27,6 +27,7 @@ export const EVENT_CATALOG = {
   "ft/initiative.evidence_changed": OrgScoped.extend({ initiativeId: Id }),
   "ft/qa.published": OrgScoped.extend({ qaEntryId: Id, initiativeId: Id }),
   "ft/fix.recorded": OrgScoped.extend({ fixId: Id, insightId: Id }),
+  "ft/capture.audio_received": OrgScoped.extend({ flagId: Id }),
 } as const;
 
 export type EventName = keyof typeof EVENT_CATALOG;

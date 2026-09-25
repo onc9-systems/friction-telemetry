@@ -17,3 +17,4 @@ export const initiativeEvidenceChanged = eventType("ft/initiative.evidence_chang
 });
 export const qaPublished = eventType("ft/qa.published", { schema: EVENT_CATALOG["ft/qa.published"] });
 export const fixRecorded = eventType("ft/fix.recorded", { schema: EVENT_CATALOG["ft/fix.recorded"] });
+export const captureAudioReceived = eventType("ft/capture.audio_received", { schema: EVENT_CATALOG["ft/capture.audio_received"] });

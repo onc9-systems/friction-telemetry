@@ -1,11 +1,17 @@
 import AppKit
 
+private extension Double {
+    var nonZero: Double? { self == 0 ? nil : self }
+}
+
 final class AppDelegate: NSObject, NSApplicationDelegate {
     private var model: AppModel!
     private var pill: PillController!
     private var review: CaptureReviewPanelController!
     private var mainWindow: MainWindowController!
     private var statusMenu: StatusMenu!
+    private let engine = CaptureEngine()
+    private var outbox: Outbox!
     #if DEBUG
     private var debugMenu: DebugMenu!
     #endif
@@ -25,12 +31,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             NSApp.terminate(nil)
             return
         }
-        mainWindow = MainWindowController(model: model)
+        outbox = Outbox(api: CaptureAPI(baseURL: LiveClient.configuredBaseURL))
+        mainWindow = MainWindowController(model: model, outbox: outbox, engine: engine)
         review = CaptureReviewPanelController(appModel: model)
         review.onSent = { [weak self] in self?.mainWindow.show(surface: .home) }
 
         pill = PillController()
-        pill.onClick = { [weak self] in self?.mainWindow.show(surface: .home) }
+        pill.onClick = { [weak self] in self?.togglePillFlag() }
+        Task { await engine.start() }
         pill.onFinishRecording = { [weak self] in
             guard let self else { return }
             self.pill.model.show(.idle)
@@ -49,7 +57,51 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         if let dir = SnapshotRunner.directory {
             SnapshotRunner.run(model: model, pill: pill, review: review, main: mainWindow, into: dir)
         }
+        // `-FrictionOpenSurface intake`: opens the main window on that surface at launch.
+        if let raw = UserDefaults.standard.string(forKey: "FrictionOpenSurface"), let surface = Surface(rawValue: raw) {
+            mainWindow.show(surface: surface)
+        }
+        // `-FrictionAutoFlag <seconds>`: clicks the hand, waits, clicks send. End-to-end check without a person.
+        let autoFlag = UserDefaults.standard.double(forKey: "FrictionAutoFlag")
+        if autoFlag > 0 {
+            let delay = UserDefaults.standard.double(forKey: "FrictionAutoFlagDelay").nonZero ?? 8
+            Task {
+                try? await Task.sleep(for: .seconds(delay))
+                togglePillFlag()
+                try? await Task.sleep(for: .seconds(autoFlag))
+                togglePillFlag()
+            }
+        }
         #endif
+    }
+
+    /// Temporary flow until the real one is designed: click the hand to start, click the send icon to send.
+    /// It only drives the capture engine and the outbox, so a new flow replaces this method and nothing else.
+    private func togglePillFlag() {
+        switch pill.model.state {
+        case .capturing:
+            pill.model.show(.sending)
+            Task {
+                do {
+                    try outbox.enqueue(try await engine.finishFlag())
+                    pill.model.show(.sent)
+                } catch {
+                    pill.model.notice(error.localizedDescription)
+                }
+            }
+        case .sending:
+            return
+        default:
+            guard !engine.isStartingFlag else { return }
+            Task {
+                do {
+                    try await engine.startFlag()
+                    pill.model.show(.capturing)
+                } catch {
+                    pill.model.notice(error.localizedDescription)
+                }
+            }
+        }
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { false }

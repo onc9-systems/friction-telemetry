@@ -8,7 +8,7 @@ struct PillView: View {
 
     var body: some View {
         Group {
-            if model.state.isExpanded || model.hovered {
+            if model.state.isExpanded {
                 expanded
             } else {
                 capsule
@@ -25,11 +25,18 @@ struct PillView: View {
     /// the thumb pulls its box right, so it shifts left and settles where its top inset matches its side insets.
     private var capsule: some View {
         let width: CGFloat = 32, height: CGFloat = 58, cap = width / 2
+        let capturing = model.state == .capturing
         return ZStack {
-            Glyph(size: 17).position(x: cap - 0.75, y: cap + 2.25)
+            if capturing {
+                Glyph(symbol: "paperplane.fill", size: 15).position(x: cap, y: cap + 1)
+            } else {
+                Glyph(size: 17).position(x: cap - 0.75, y: cap + 2.25)
+            }
             Group {
                 if model.state == .paused {
                     Image(systemName: "rectangle.slash").font(.system(size: 9, weight: .semibold)).foregroundStyle(.secondary)
+                } else if capturing {
+                    ActivityDots(color: .red, size: 3.5)
                 } else {
                     ActivityDots(color: .secondary.opacity(0.7), size: 3.5)
                 }
@@ -45,7 +52,7 @@ struct PillView: View {
     private var expanded: some View {
         HStack(alignment: .center, spacing: 12) {
             content
-            Glyph()
+            Glyph(symbol: model.state == .capturing ? "paperplane.fill" : "hand.raised.fill")
         }
         .padding(.leading, 14)
         .padding(.trailing, 10)
@@ -57,10 +64,15 @@ struct PillView: View {
 
     @ViewBuilder private var content: some View {
         switch model.state {
-        case .idle:
-            Text("Hold \(CaptureKeyDisplay.name) to flag").font(.callout).foregroundStyle(.primary)
-        case .paused:
-            Text("Screen context is off. Flags send voice only.").font(.callout).wraps()
+        case .idle, .capturing, .paused:
+            // Capsule-only states: without a hover state they never grow into a card.
+            EmptyView()
+        case .sending:
+            HStack(spacing: 8) { ProgressView().controlSize(.small); Text("Sending").font(.callout) }
+        case .sent:
+            Text("Sent to Friction").font(.callout)
+        case .notice:
+            Text(model.noticeText).font(.callout).wraps().frame(maxWidth: 280, alignment: .leading)
         case .listening:
             VStack(alignment: .leading, spacing: 2) {
                 HStack(spacing: 6) { ActivityDots(color: .green); Text("Listening").font(.callout.weight(.medium)) }
@@ -93,9 +105,10 @@ struct PillView: View {
 }
 
 private struct Glyph: View {
+    var symbol = "hand.raised.fill"
     var size: CGFloat = 16
     var body: some View {
-        Image(systemName: "hand.raised.fill")
+        Image(systemName: symbol)
             .font(.system(size: size, weight: .semibold))
             .foregroundStyle(.primary)
             .frame(width: size + 4, height: size + 4)

@@ -15,6 +15,13 @@
       "when": 1790280857620,
       "tag": "0001_domain-tables",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790339757913,
+      "tag": "0002_flag-capture",
+      "breakpoints": true
     }
   ]
 }

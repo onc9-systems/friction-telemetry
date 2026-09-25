@@ -6,8 +6,14 @@ import SwiftUI
 final class MainWindowController: NSObject, NSWindowDelegate {
     private var window: NSWindow?
     private let model: AppModel
+    private let outbox: Outbox
+    private let engine: CaptureEngine
 
-    init(model: AppModel) { self.model = model }
+    init(model: AppModel, outbox: Outbox, engine: CaptureEngine) {
+        self.model = model
+        self.outbox = outbox
+        self.engine = engine
+    }
 
     var isOpen: Bool { window?.isVisible == true }
     var contentView: NSView? { window?.contentView }
@@ -19,7 +25,7 @@ final class MainWindowController: NSObject, NSWindowDelegate {
             window.makeKeyAndOrderFront(nil)
             return
         }
-        let controller = NSHostingController(rootView: MainView().environment(model))
+        let controller = NSHostingController(rootView: MainView().environment(model).environment(outbox).environment(engine))
         controller.sceneBridgingOptions = [.toolbars]
         let window = NSWindow(contentViewController: controller)
         window.title = "Friction"

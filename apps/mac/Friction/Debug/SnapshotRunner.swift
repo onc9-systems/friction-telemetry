@@ -44,6 +44,7 @@ enum SnapshotRunner {
         case .insights: InsightsPage(initiativeId: .constant(nil), selected: .constant(nil))
         case .health: HealthView()
         case .settings: SettingsView()
+        case .intake: EmptyStateText(text: "Intake shows live service data and is not rendered in snapshots.")
         }
     }
 
@@ -70,10 +71,6 @@ enum SnapshotRunner {
                 if let v = pill.panel.contentView { write(v, to: dir.appending(path: "pill-\(state.rawValue).png")) }
             }
             pill.model.show(.idle)
-            pill.model.hovered = true
-            await pause(400)
-            if let v = pill.panel.contentView { write(v, to: dir.appending(path: "pill-idle-hover.png")) }
-            pill.model.hovered = false
 
             review.show(on: NSScreen.main)
             await pause(800)
